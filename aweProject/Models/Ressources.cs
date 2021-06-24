@@ -12,15 +12,18 @@ namespace aweProject.Models
         public Guid Id { get; set; }
 
         [Required]
+        [MinLength(3)]
         public string Name { get; set; }
 
         [Required]
+        [MinLength(3)]
         public string Type { get; set; }
 
         [Required]
         [DisplayFormat(DataFormatString = "{0:dd-MMM-yyyy}", ApplyFormatInEditMode = true)]
         public DateTime BuyDate { get; set; }
 
+        
         [DisplayFormat(DataFormatString = "{0:dd-MMM-yyyy}", ApplyFormatInEditMode = true)]
         public DateTime NextMaintenance { get; set; }
 

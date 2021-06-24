@@ -1,5 +1,4 @@
 ﻿using System;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -25,75 +24,50 @@ namespace aweProject.Controllers
             return View(await _context.Ressources.ToListAsync());
         }
 
-        // GET: Ressources/Details/5
-        public async Task<IActionResult> Details(Guid? id)
+        // GET: Create Partial View
+        public ActionResult GetCreate()
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var ressources = await _context.Ressources
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (ressources == null)
-            {
-                return NotFound();
-            }
-
-            return View(ressources);
+            return PartialView("CreatePartial");
         }
 
-        // GET: Ressources/Create
-        public IActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Ressources/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: Insert Data from Create Partial View
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Type,BuyDate,NextMaintenance,Standort")] Ressources ressources)
+        public async Task<IActionResult> PostInsert([Bind("Id,Name,Type,BuyDate,NextMaintenance,Standort")] Ressources ressources)
         {
             if (ModelState.IsValid)
             {
                 ressources.Id = Guid.NewGuid();
                 _context.Add(ressources);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return PartialView("IndexNewPartial", ressources);
             }
-            return View(ressources);
+
+            return PartialView("CreatePartial", ressources);
         }
 
-        // GET: Ressources/Edit/5
-        public async Task<IActionResult> Edit(Guid? id)
+        // GET: Edit Partial View
+        public async Task<IActionResult> GetEdit(Guid? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var ressources = await _context.Ressources.FindAsync(id);
-            if (ressources == null)
+            var session = await _context.Ressources.FindAsync(id);
+            if (session == null)
             {
                 return NotFound();
             }
-            return View(ressources);
+
+            return PartialView("EditPartial", session);
         }
 
-        // POST: Ressources/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: Update Data from Create Partial View
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("Id,Name,Type,BuyDate,NextMaintenance,Standort")] Ressources ressources)
+        public async Task<IActionResult> PostUpdate([Bind("Id,Name,Type,BuyDate,NextMaintenance,Standort")] Ressources ressources)
         {
-            if (id != ressources.Id)
-            {
-                return NotFound();
-            }
-
             if (ModelState.IsValid)
             {
                 try
@@ -103,7 +77,7 @@ namespace aweProject.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!RessourcesExists(ressources.Id))
+                    if (!RessourceExists(ressources.Id))
                     {
                         return NotFound();
                     }
@@ -112,43 +86,49 @@ namespace aweProject.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return PartialView("IndexPartial", ressources);
             }
-            return View(ressources);
+            return PartialView("EditPartial", ressources);
         }
 
-        // GET: Ressources/Delete/5
-        public async Task<IActionResult> Delete(Guid? id)
+        // GET: Get Index Partial (Edit Canceled)
+        public async Task<IActionResult> GetCancelEdit(Guid? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var ressources = await _context.Ressources
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (ressources == null)
+            var session = await _context.Ressources.FirstOrDefaultAsync(m => m.Id == id);
+            if (session == null)
             {
                 return NotFound();
             }
 
-            return View(ressources);
+            return PartialView("IndexPartial", session);
         }
 
-        // POST: Ressources/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(Guid id)
+        // GET: Get New Partial (Create Canceled)
+        public ActionResult GetCancelCreate()
         {
-            var ressources = await _context.Ressources.FindAsync(id);
-            _context.Ressources.Remove(ressources);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return PartialView("NewPartial");
         }
 
-        private bool RessourcesExists(Guid id)
+        // POST: Delete Data
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> PostDelete(Guid id)
+        {
+            var session = await _context.Ressources.FindAsync(id);
+            _context.Ressources.Remove(session);
+            await _context.SaveChangesAsync();
+            return new EmptyResult();
+        }
+
+        private bool RessourceExists(Guid id)
         {
             return _context.Ressources.Any(e => e.Id == id);
         }
+
     }
 }

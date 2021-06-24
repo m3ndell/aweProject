@@ -4,56 +4,128 @@
     ViewData["Title"] = "Index";
 }
 
-<h2>Index</h2>
+<h2 id="ressources">Bestandsverwaltung</h2>
+<hr />
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                Typ
-            </th>
-            <th>
+<div class="card border-dark">
+    <div class="card-header pl-3 pb-0 pt-2">
+        <h4>Ressourcen</h4>
+    </div>
+    <div class="card-body">
+        <div class="form-row bg-dark text-white p-1">
+            <div class="col-2 pl-0">
+                Ressourcen-Name
+            </div>
+            <div class="col-2 pl-0">
+                Ressourcen-Typ
+            </div>
+            <div class="col-2 pl-0">
                 Kaufdatum
-            </th>
-            <th>
+            </div>
+            <div class="col-2 pl-0">
                 Nächste Wartung
-            </th>
-            <th>
+            </div>
+            <div class="col-2 pl-0" style="width: 20%">
                 Aktueller Standort
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Type)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BuyDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NextMaintenance)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Standort)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+            </div>
+            <div class="col-2">
+                
+            </div>
+        </div>
+        @foreach (var item in Model)
+        {
+            <partial name="IndexPartial" model="item" />
+        }
+        <partial name="NewPartial" />
+    </div>
+</div>
+
+<script>
+    function Edit(Id) {
+        $.get("@Url.Action("GetEdit", "Ressources")", { id: Id })
+            .done(function (data) {
+                $("#row_" + Id).replaceWith(data);
+            })
+            .fail(function (status) {
+                alert("HTTP Error Code " + status.status);
+            }
+        );
+    };
+
+    function Update(Id) {
+        $.post("@Url.Action("PostUpdate", "Ressources")", $("#row_" + Id).serialize())
+            .done(function (data) {
+                $("#row_" + Id + " input[name='BuyDate']").datepicker().destroy();
+                $("#row_" + Id + " input[name='NextMaintenance']").datepicker().destroy();
+                $("#row_" + Id).replaceWith(data);
+            })
+            .fail(function (status) {
+                alert("HTTP Error Code " + status.status);
+            }
+        );
+    };
+
+    function CancelEdit(Id) {
+        $.get("@Url.Action("GetCancelEdit", "Ressources")", { id: Id })
+            .done(function (data) {
+                $("#row_" + Id + " input[name='BuyDate']").datepicker().destroy();
+                $("#row_" + Id + " input[name='NextMaintenance']").datepicker().destroy();
+                $("#row_" + Id).replaceWith(data);
+            })
+            .fail(function (status) {
+                alert("HTTP Error Code " + status.status);
+            }
+        );
+    };
+
+    function Create() {
+        $.get("@Url.Action("GetCreate", "Ressources")", null)
+            .done(function (data) {
+                $("#row_New").replaceWith(data);
+            })
+            .fail(function (status) {
+                alert("HTTP Error Code " + status.status);
+            }
+        );
+    };
+
+    function Insert() {
+        $.post("@Url.Action("PostInsert", "Ressources")", $("#row_New").serialize())
+            .done(function (data) {
+                $("#row_New input[name='BuyDate']").datepicker().destroy();
+                $("#row_New input[name='NextMaintenance']").datepicker().destroy();
+                $("#row_New").replaceWith(data);
+            })
+            .fail(function (status) {
+                alert("HTTP Error Code " + status.status);
+            }
+        );
+    };
+
+    function CancelCreate(Id) {
+        $.get("@Url.Action("GetCancelCreate", "Ressources")", null)
+            .done(function (data) {
+                $("#row_New input[name='BuyDate']").datepicker().destroy();
+                $("#row_New input[name='NextMaintenance']").datepicker().destroy();
+                $("#row_New").replaceWith(data);
+            })
+            .fail(function (status) {
+                alert("HTTP Error Code " + status.status);
+            }
+        );
+    };
+
+    function Delete(Id) {
+        if (confirm("This table entry will be deleted permanently.")) {
+            $.post("@Url.Action("PostDelete", "Ressources")", $("#row_" + Id).serialize())
+                .done(function (data) {
+                    $("#row_" + Id).replaceWith(data);
+                })
+                .fail(function (status) {
+                    alert("HTTP Error Code " + status.status);
+                }
+            );
+        }
+    };
+
+</script>
