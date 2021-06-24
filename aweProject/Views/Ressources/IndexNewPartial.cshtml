@@ -1,0 +1,42 @@
+﻿@model aweProject.Models.Ressources
+
+<form id="row_@Model.Id">
+    <div class="form-row border-bottom border-secondary align-items-center p-1">
+        <div class="col-2 pl-0" style="width: 10%">
+            @Html.DisplayFor(model => model.Name)
+        </div>
+        <div class="col-2 pl-0" style="width: 10%">
+            @Html.DisplayFor(model => model.Type)
+        </div>
+        <div class="col-2 pl-0" style="width: 30%">
+            @Html.DisplayFor(model => model.BuyDate)
+        </div>
+        <div class="col-2 pl-0" style="width: 10%">
+            @Html.DisplayFor(model => model.NextMaintenance)
+        </div>
+        <div class="col-2 pl-0" style="width: 20%">
+            @Html.DisplayFor(model => model.Standort)
+        </div>
+        <div class="col-2" style="width: 10%">
+            <input type="hidden" asp-for="Id" />
+            <button type="button" class="btn btn-outline-dark" onclick="Edit('@Model.Id')"><i class="fas fa-edit fa-fw"></i></button>
+            <button type="button" class="btn btn-danger" onclick="Delete('@Model.Id')"><i class="fas fa-trash-alt fa-fw"></i></button>
+            @Html.AntiForgeryToken()
+        </div>
+    </div>
+</form>
+<div class="form-row border-bottom border-secondary p-1" id="row_New">
+    <div class="col-2 pl-0" style="width: 10%">
+    </div>
+    <div class="col-2 pl-0" style="width: 10%">
+    </div>
+    <div class="col-3 pl-0" style="width: 30%">
+    </div>
+    <div class="col-1 pl-0" style="width: 10%">
+    </div>
+    <div class="col-2 pl-0" style="width: 20%">
+    </div>
+    <div class="col-2">
+        <button type="button" class="btn btn-outline-dark" onclick="Create()"><i class="fas fa-plus fa-fw"></i></button>
+    </div>
+</div>

@@ -5,6 +5,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20210621112645_TestScaffold.cs" />
+    <Compile Remove="Migrations\20210621112645_TestScaffold.Designer.cs" />
+    <Compile Remove="Migrations\20210621120820_Ressources2.cs" />
+    <Compile Remove="Migrations\20210621120820_Ressources2.Designer.cs" />
+    <Compile Remove="Migrations\20210621121727_Ressources3.cs" />
+    <Compile Remove="Migrations\20210621121727_Ressources3.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore" Version="2.1.7" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="2.1.6" />
