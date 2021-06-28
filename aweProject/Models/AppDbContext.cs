@@ -27,5 +27,7 @@ namespace aweProject.Models
 
         public DbSet<aweProject.Models.Ressources> Ressources { get; set; }
 
+        public DbSet<aweProject.Models.Order> Order { get; set; }
+
     }
 }
