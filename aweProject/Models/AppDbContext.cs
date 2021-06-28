@@ -31,5 +31,7 @@ namespace aweProject.Models
 
         public DbSet<aweProject.Models.Order> Order { get; set; }
 
+        public DbSet<aweProject.Models.Retouren> Retouren { get; set; }
+
     }
 }
