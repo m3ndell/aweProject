@@ -27,5 +27,7 @@ namespace aweProject.Models
 
         public DbSet<aweProject.Models.Ressources> Ressources { get; set; }
 
+        public DbSet<aweProject.Models.Retouren> Retouren { get; set; }
+
     }
 }
