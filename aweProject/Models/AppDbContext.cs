@@ -29,5 +29,7 @@ namespace aweProject.Models
 
         public DbSet<aweProject.Models.SiteManagement> SiteManagement { get; set; }
 
+        public DbSet<aweProject.Models.Order> Order { get; set; }
+
     }
 }
