@@ -33,7 +33,7 @@ namespace aweProject.Controllers
         // POST: Insert Data from Create Partial View
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> PostInsert([Bind("Id,Name,Type,BuyDate,NextMaintenance,Standort")] Ressources ressources)
+        public async Task<IActionResult> PostInsert([Bind("Id,Name,Type,BuyDate,NextMaintenance,Standort, SiteId")] Ressources ressources)
         {
             if (ModelState.IsValid)
             {

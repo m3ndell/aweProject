@@ -14,7 +14,7 @@
     <div class="card-body">
         <select class="form-select" aria-label="Default select example">
             <option selected>Baustelle auswählen</option>
-            @foreach (var item in Model)
+            @foreach (SiteManagement item in Model)
             {
                 <option onclick="Create(@item.Id)" selected>@item.Name</option>
 
