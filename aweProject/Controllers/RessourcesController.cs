@@ -33,12 +33,13 @@ namespace aweProject.Controllers
         // POST: Insert Data from Create Partial View
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> PostInsert([Bind("Id,Name,Type,BuyDate,NextMaintenance,Standort")] Ressources ressources)
+        public async Task<IActionResult> PostInsert([Bind("Id,Name,Type,BuyDate,NextMaintenance,Standort, SiteId, OrderLog")] Ressources ressources)
         {
             if (ModelState.IsValid)
             {
                 ressources.Id = Guid.NewGuid();
                 ressources.SiteId = Guid.Empty;
+                ressources.OrderLog = DateTime.Now.ToString("yyyyMMddHHmmss");
                 _context.Add(ressources);
                 await _context.SaveChangesAsync();
                 return PartialView("IndexNewPartial", ressources);
@@ -67,7 +68,7 @@ namespace aweProject.Controllers
         // POST: Update Data from Create Partial View
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> PostUpdate([Bind("Id,Name,Type,BuyDate,NextMaintenance,Standort")] Ressources ressources)
+        public async Task<IActionResult> PostUpdate([Bind("Id,Name,Type,BuyDate,NextMaintenance,Standort, SiteId, OrderLog")] Ressources ressources)
         {
             if (ModelState.IsValid)
             {

@@ -38,5 +38,7 @@ namespace aweProject.Models
         public string Standort { get; set; }
 
         public Guid SiteId { get; set; }
+
+        public string OrderLog { get; set; }  
     }
 }
