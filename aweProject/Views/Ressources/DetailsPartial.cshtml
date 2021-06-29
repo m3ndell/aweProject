@@ -1,0 +1,75 @@
+﻿@model aweProject.Models.Ressources
+
+<form id="Details_Partial">
+    <div class="card border-dark" id="DetailsPartial">
+        <div class="card-header pl-3 pb-0 pt-2">
+            <h4>Details</h4>
+        </div>
+        <div class="card-body">
+            <div class="form-row border-bottom border-secondary align-items-start pt-1 pb-1 pl-0 pr-1">
+                <div class="col-8 pl-0">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Typ</th>
+                                <th scope="col">Zeit</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                int i = 0;
+                                foreach (var item in Model.OrderLog.Split(','))
+                                {
+                                    if (!item.Equals("") && !item.Equals(" "))
+                                    {
+                                        if (i == 0)
+                                        {
+                                            <tr>
+                                                <th scope="row">@(i+1)</th>
+                                                <td>Einkauf</td>
+                                                <td>@item</td>
+                                            </tr>
+                                        }
+                                        else if (i % 2 == 0)
+                                        {
+                                            <tr>
+                                                <th scope="row">@(i+1)</th>
+                                                <td>Check-In</td>
+                                                <td>@item</td>
+                                            </tr>
+                                        }
+                                        else
+                                        {
+                                            <tr>
+                                                <th scope="row">@(i+1)</th>
+                                                <td>Check-Out</td>
+                                                <td>@item</td>
+                                            </tr>
+                                        }
+                                        i++;
+                                    }
+                                }
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-3 pl-0">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Auslastungsquote</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">@ViewBag.Occupancy%</th>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

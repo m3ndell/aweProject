@@ -43,3 +43,7 @@ body {
 .navbar-nav > .active > a {
     text-color: #ffffff;
 }
+
+#DetailsPartial {
+    margin-top: 5%;
+}

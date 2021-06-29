@@ -32,8 +32,8 @@
         </div>
         <div class="col-2">
             <input type="hidden" asp-for="Id" />
-            <button type="button" class="btn btn-primary" onclick="Update('@Model.Id')"><i class="fas fa-check fa-fw"></i></button>
-            <button type="button" class="btn btn-warning" onclick="CancelEdit('@Model.Id')"><i class="fas fa-times fa-fw"></i></button>
+            <button type="button" class="btn btn-outline-dark" onclick="Update('@Model.Id')"><i class="fas fa-check fa-fw"></i></button>
+            <button type="button" class="btn btn-outline-dark" onclick="CancelEdit('@Model.Id')"><i class="fas fa-times fa-fw"></i></button>
         </div>
         @Html.AntiForgeryToken()
     </div>
@@ -41,12 +41,14 @@
     <script>
     $("#row_@Model.Id input[name='From']").datepicker({
         uiLibrary: 'bootstrap4',
-        format: 'dd-mmm-yyyy'
+        format: 'dd-mmm-yyyy',
+        defaultDate: Date.now()
     });
 
     $("#row_@Model.Id input[name='To']").datepicker({
         uiLibrary: 'bootstrap4',
-        format: 'dd-mmm-yyyy'
+        format: 'dd-mmm-yyyy',
+        defaultDate: Date.now()
     });
     </script>
 </form>

@@ -32,7 +32,8 @@
         <div class="col-2" style="width: 10%">
             <input type="hidden" asp-for="Id" />
             <button type="button" class="btn btn-outline-dark" onclick="Edit('@Model.Id')"><i class="fas fa-edit fa-fw"></i></button>
-            <button type="button" class="btn btn-danger" onclick="Delete('@Model.Id')"><i class="fas fa-trash-alt fa-fw"></i></button>
+            <button type="button" class="btn btn-outline-dark" onclick="Details('@Model.Id')"><i class="fas fa-info fa-fw"></i></button>
+            <button type="button" class="btn btn-outline-dark" onclick="Delete('@Model.Id')"><i class="fas fa-trash-alt fa-fw"></i></button>
             @Html.AntiForgeryToken()
         </div>
     </div>
