@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using aweProject.Models;
 
 namespace aweProject.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210629111929_database")]
+    partial class database
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -102,8 +104,6 @@ namespace aweProject.Migrations
 
                     b.Property<DateTime>("NextMaintenance");
 
-                    b.Property<string>("OrderLog");
-
                     b.Property<Guid>("SiteId");
 
                     b.Property<string>("Standort");
@@ -130,6 +130,24 @@ namespace aweProject.Migrations
                     b.HasIndex("RessourcesId");
 
                     b.ToTable("Retouren");
+                });
+
+            modelBuilder.Entity("aweProject.Models.SiteManagement", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Description")
+                        .IsRequired();
+
+                    b.Property<string>("Name")
+                        .IsRequired();
+
+                    b.Property<int>("manager");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SiteManagement");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

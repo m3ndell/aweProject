@@ -1,3 +1,26 @@
 ﻿
+<form id="new_Partial">
+    <div class="card border-dark">
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Ressourcenname</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (Ressources item in Model.RessourcesList.Where(item => item.SiteId == Model.Id))
+            {
+                <tr>
+                    <th scope="row">1</th>
+                    <td>@item.Name</td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+</form>    </tabel>
+</div>
+</form>
 
 
