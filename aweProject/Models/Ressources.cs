@@ -36,5 +36,7 @@ namespace aweProject.Models
 
         [ReadOnly(true)]
         public string Standort { get; set; }
+
+        public Guid SiteId { get; set; }
     }
 }

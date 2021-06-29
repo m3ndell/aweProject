@@ -38,6 +38,7 @@ namespace aweProject.Controllers
             if (ModelState.IsValid)
             {
                 ressources.Id = Guid.NewGuid();
+                ressources.SiteId = Guid.Empty;
                 _context.Add(ressources);
                 await _context.SaveChangesAsync();
                 return PartialView("IndexNewPartial", ressources);
