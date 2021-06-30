@@ -42,6 +42,11 @@
         <partial name="NewPartial" />
     </div>
 </div>
+<form id="Details_Partial">
+
+</form>
+
+
 
 <script>
     function Edit(Id) {
@@ -130,5 +135,17 @@
             );
         }
     };
+
+    function Details(Id) {
+        $.get("@Url.Action("GetDetails", "Ressources")", { id: Id })
+            .done(function (data) {
+                $("#Details_Partial").replaceWith(data);
+            })
+            .fail(function (status) {
+                alert("HTTP Error Code " + status.status);
+            }
+        );
+    };
+
 
 </script>

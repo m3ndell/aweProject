@@ -31,8 +31,8 @@
             <small><span asp-validation-for="Standort" class="text-danger"></span></small>
         </div>
         <div class="col-2">
-            <button type="button" class="btn btn-primary" onclick="Insert()"><i class="fas fa-check fa-fw"></i></button>
-            <button type="button" class="btn btn-warning" onclick="CancelCreate()"><i class="fas fa-times fa-fw"></i></button>
+            <button type="button" class="btn btn-outline-dark" onclick="Insert()"><i class="fas fa-check fa-fw"></i></button>
+            <button type="button" class="btn btn-outline-dark" onclick="CancelCreate()"><i class="fas fa-times fa-fw"></i></button>
         </div>
         @Html.AntiForgeryToken()
     </div>
@@ -40,12 +40,14 @@
     <script>
         $("#row_New input[name='BuyDate']").datepicker({
             uiLibrary: 'bootstrap4',
-            format: 'dd-mmm-yyyy'
+            format: 'dd-mmm-yyyy',
+            defaultDate: Date.now()
         });
 
         $("#row_New input[name='NextMaintenance']").datepicker({
             uiLibrary: 'bootstrap4',
-            format: 'dd-mmm-yyyy'
+            format: 'dd-mmm-yyyy',
+            defaultDate: Date.now()
         });
     </script>
 </form>

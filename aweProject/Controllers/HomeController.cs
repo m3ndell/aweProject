@@ -1,5 +1,6 @@
 ﻿using aweProject.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -10,9 +11,13 @@ namespace aweProject.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+
+        private readonly AppDbContext _context;
+
+
+        public HomeController(AppDbContext context)
         {
-            return View();
+            _context = context;
         }
 
         public IActionResult About()
@@ -39,5 +44,17 @@ namespace aweProject.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+
+        public async Task<IActionResult> Index()
+        {
+            return View(await _context.SiteManagement.ToListAsync());
+        }
+
+        public async Task<IActionResult> GetCreate(Guid id)
+        {
+            return PartialView("SiteFormPartial", new SiteRessource(id, await _context.Ressources.ToListAsync()));
+        }
     }
 }
+

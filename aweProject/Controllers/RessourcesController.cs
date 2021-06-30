@@ -33,11 +33,13 @@ namespace aweProject.Controllers
         // POST: Insert Data from Create Partial View
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> PostInsert([Bind("Id,Name,Type,BuyDate,NextMaintenance,Standort")] Ressources ressources)
+        public async Task<IActionResult> PostInsert([Bind("Id,Name,Type,BuyDate,NextMaintenance,Standort, SiteId, OrderLog")] Ressources ressources)
         {
             if (ModelState.IsValid)
             {
                 ressources.Id = Guid.NewGuid();
+                ressources.SiteId = Guid.Empty;
+                ressources.OrderLog = DateTime.Now.ToString();
                 _context.Add(ressources);
                 await _context.SaveChangesAsync();
                 return PartialView("IndexNewPartial", ressources);
@@ -66,7 +68,7 @@ namespace aweProject.Controllers
         // POST: Update Data from Create Partial View
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> PostUpdate([Bind("Id,Name,Type,BuyDate,NextMaintenance,Standort")] Ressources ressources)
+        public async Task<IActionResult> PostUpdate([Bind("Id,Name,Type,BuyDate,NextMaintenance,Standort, SiteId, OrderLog")] Ressources ressources)
         {
             if (ModelState.IsValid)
             {
@@ -104,7 +106,6 @@ namespace aweProject.Controllers
             {
                 return NotFound();
             }
-
             return PartialView("IndexPartial", session);
         }
 
@@ -130,5 +131,73 @@ namespace aweProject.Controllers
             return _context.Ressources.Any(e => e.Id == id);
         }
 
+        // GET: GetDetailsPartial
+        public async Task<IActionResult> GetDetails(Guid? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            //string dates = "29/06/2021 19:11:53, 30/06/2021 19:11:53, 07/07/2021 19:11:53, 14/07/2021 16:52:13, 18/07/2021 14:01:33, ";
+            var session = await _context.Ressources.FindAsync(id);
+            //session.OrderLog = dates;
+            if (session == null)
+            {
+                return NotFound();
+            }
+
+            ViewBag.Occupancy = CalculateTime(session.OrderLog);
+            return PartialView("DetailsPartial", session);
+        }
+
+        public static double CalculateTime(String OrderLog)
+        {
+            string[] dateString = OrderLog.Split(',');          //split String into array
+            List<DateTime> dates = new List<DateTime>();
+
+            foreach (var date in dateString)
+            {                   //convert String to DateTime List
+                if (date.Equals(" ") | date.Equals(""))
+                {
+                    break;
+                }
+                else
+                {
+                    dates.Add(Convert.ToDateTime(date));
+                }
+            }
+
+            double TotalTimeStorage = 0;
+            double TotalTimeAway = 0;
+
+            DateTime LastDate = DateTime.Now;
+            int i = 0;
+            TimeSpan ts = TimeSpan.Zero;
+
+            foreach (var date in dates)
+            {                        //count time between dates and calculate TotalTimeAway and TotalTimeStorage
+                if (i == 0)
+                {
+                    LastDate = date;
+                }
+                else if (i % 2 == 0)
+                {
+                    ts = date - LastDate;
+                    TotalTimeAway += ts.TotalSeconds;
+                    LastDate = date;
+
+                }
+                else
+                {
+                    ts = date - LastDate;
+                    TotalTimeStorage += ts.TotalSeconds;
+                    LastDate = date;
+
+                }
+                i++;
+            }
+            return Math.Round(((Double)TotalTimeAway / (TotalTimeAway + TotalTimeStorage)) * 100, 2);  // Rückgabe Auslastung in % auf zwei Nachkommastellen gerundet
+        }
     }
 }
