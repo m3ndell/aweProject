@@ -97,6 +97,8 @@ namespace aweProject.Migrations
 
                     b.Property<DateTime>("BuyDate");
 
+                    b.Property<bool>("IsInStorage");
+
                     b.Property<string>("Name")
                         .IsRequired();
 
@@ -130,6 +132,24 @@ namespace aweProject.Migrations
                     b.HasIndex("RessourcesId");
 
                     b.ToTable("Retouren");
+                });
+
+            modelBuilder.Entity("aweProject.Models.SiteManagement", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Description")
+                        .IsRequired();
+
+                    b.Property<string>("Name")
+                        .IsRequired();
+
+                    b.Property<int>("manager");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SiteManagement");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

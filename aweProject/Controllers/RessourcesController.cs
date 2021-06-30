@@ -33,13 +33,15 @@ namespace aweProject.Controllers
         // POST: Insert Data from Create Partial View
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> PostInsert([Bind("Id,Name,Type,BuyDate,NextMaintenance,Standort, SiteId, OrderLog")] Ressources ressources)
+        public async Task<IActionResult> PostInsert([Bind("Id,Name,Type,BuyDate,NextMaintenance,Standort, SiteId, OrderLog, IsInStorage")] Ressources ressources)
         {
             if (ModelState.IsValid)
             {
                 ressources.Id = Guid.NewGuid();
                 ressources.SiteId = Guid.Empty;
-                ressources.OrderLog = DateTime.Now.ToString();
+                ressources.OrderLog = DateTime.Now.ToString() + ", ";
+                //ressources.OrderLog = "29/06/2021 19:11:53, 30/06/2021 19:11:53, 07/07/2021 19:11:53, 14/07/2021 16:52:13, 18/07/2021 14:01:33, ";
+                ressources.IsInStorage = true;
                 _context.Add(ressources);
                 await _context.SaveChangesAsync();
                 return PartialView("IndexNewPartial", ressources);
@@ -68,7 +70,7 @@ namespace aweProject.Controllers
         // POST: Update Data from Create Partial View
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> PostUpdate([Bind("Id,Name,Type,BuyDate,NextMaintenance,Standort, SiteId, OrderLog")] Ressources ressources)
+        public async Task<IActionResult> PostUpdate([Bind("Id,Name,Type,BuyDate,NextMaintenance,Standort, SiteId, OrderLog, IsInStorage")] Ressources ressources)
         {
             if (ModelState.IsValid)
             {

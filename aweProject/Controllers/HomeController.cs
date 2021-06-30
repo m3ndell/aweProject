@@ -55,6 +55,17 @@ namespace aweProject.Controllers
         {
             return PartialView("SiteFormPartial", new SiteRessource(id, await _context.Ressources.ToListAsync()));
         }
+
+        public async Task<IActionResult> Checkout(Guid RessourceId, Guid SiteId)
+        {
+            var session = await _context.Ressources.FindAsync(RessourceId);
+            session.SiteId = SiteId;
+            session.IsInStorage = false;
+            session.OrderLog = session.OrderLog + DateTime.Now.ToString() + ", ";
+            await _context.SaveChangesAsync();
+
+            return PartialView("SiteFormPartial", new SiteRessource(SiteId, await _context.Ressources.ToListAsync()));
+        }
     }
 }
 

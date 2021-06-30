@@ -12,25 +12,47 @@
         <h4>Baustelle verwalten</h4>
     </div>
     <div class="card-body">
-        <select class="form-select" aria-label="Default select example">
+        <select id="SiteSelect" onchange="Create()" class="form-select" aria-label="Default select example">
             <option selected>Baustelle auswählen</option>
-            @foreach (SiteManagement item in Model)
-            {
-                <option onclick="Create(@item.Id)" selected>@item.Name</option>
-
+            @{
+                foreach (SiteManagement item in Model)
+                {
+                    <option value="@item.Id">@item.Name</option>
+                }
             }
+
         </select>
     </div>
-    
 </div>
+<form id="SiteFormPartial">
+
+</form>
+
 
 
 
 <script>
-    function Create(Id) {
-        $.get("@Url.Action("GetCreate", "Home")", { id: Id })
+    function Create() {
+        var value = $("#SiteSelect").val();
+        console.log(value);
+        $.get("@Url.Action("GetCreate", "Home")", { id: value })
             .done(function (data) {
-                $("#new_Partial").replaceWith(data);
+                $("#SiteFormPartial").replaceWith(data);
+            })
+            .fail(function (status) {
+                alert("HTTP Error Code " + status.status);
+            }
+        );
+    };
+
+
+    function Checkout(Id) {
+        console.log(Id);
+        var SiteId = $("#SiteSelect").val();
+        console.log(SiteId);
+        $.get("@Url.Action("Checkout", "Home")", { RessourceId: Id, SiteId: SiteId })
+            .done(function (data) {
+                $("#SiteFormPartial").replaceWith(data);
             })
             .fail(function (status) {
                 alert("HTTP Error Code " + status.status);

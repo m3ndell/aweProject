@@ -11,6 +11,16 @@
     <Compile Remove="Migrations\20210621120820_Ressources2.Designer.cs" />
     <Compile Remove="Migrations\20210621121727_Ressources3.cs" />
     <Compile Remove="Migrations\20210621121727_Ressources3.Designer.cs" />
+    <Compile Remove="Migrations\20210629114507_db2.cs" />
+    <Compile Remove="Migrations\20210629114507_db2.Designer.cs" />
+    <Compile Remove="Migrations\20210629114806_db3.cs" />
+    <Compile Remove="Migrations\20210629114806_db3.Designer.cs" />
+    <Compile Remove="Migrations\20210630103112_db4.cs" />
+    <Compile Remove="Migrations\20210630103112_db4.Designer.cs" />
+    <Compile Remove="Migrations\20210630104944_db5.cs" />
+    <Compile Remove="Migrations\20210630104944_db5.Designer.cs" />
+    <Compile Remove="Migrations\20210630105502_Test.cs" />
+    <Compile Remove="Migrations\20210630105502_Test.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
