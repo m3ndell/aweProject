@@ -10,8 +10,8 @@ using aweProject.Models;
 namespace aweProject.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20210629114806_db3")]
-    partial class db3
+    [Migration("20210630105644_New")]
+    partial class New
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -98,6 +98,8 @@ namespace aweProject.Migrations
                         .ValueGeneratedOnAdd();
 
                     b.Property<DateTime>("BuyDate");
+
+                    b.Property<bool>("IsInStorage");
 
                     b.Property<string>("Name")
                         .IsRequired();
