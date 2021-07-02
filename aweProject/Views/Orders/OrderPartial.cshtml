@@ -21,7 +21,7 @@
                         int i = 1;
                         foreach (Order order in Model.OrderList)
                         {
-                            if (order.IsActive == false)
+                            if (order.IsActive == false && order.IsClosed == false)
                             {
                                 SiteManagement site = Model.SiteList.Find(x => x.Id == order.SiteId);
                                 Ressources ressources = Model.RessourcesList.Find(x => x.Id == order.RessourceId);
@@ -69,7 +69,7 @@
                         int j = 1;
                         foreach (Order order in Model.OrderList)
                         {
-                            if (order.IsActive == true && order.IsClosed== false)
+                            if (order.IsActive == true && order.IsClosed == false)
                             {
                                 SiteManagement site = Model.SiteList.Find(x => x.Id == order.SiteId);
                                 Ressources ressources = Model.RessourcesList.Find(x => x.Id == order.RessourceId);
@@ -134,7 +134,7 @@
                                     <td scope="row">@order.CheckOutTime.ToString()</td>
                                     <td scope="row">@retouren.CheckInTime.ToString()</td>
                                 </tr>
-                                j++;
+                                h++;
                             }
                         }
                     }

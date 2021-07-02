@@ -13,6 +13,7 @@
 <script>
 
     function CheckIn(SiteId, RessourceId, RetourenId, OrderId) {
+        console.log(OrderId);
         $.get("@Url.Action("CheckIn", "Retourens")", { RessourceId: RessourceId, SiteId: SiteId, RetourenId: RetourenId, OrderId: OrderId })
             .done(function (data) {
                 $("#RetourenCard").replaceWith(data);

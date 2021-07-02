@@ -40,6 +40,7 @@ namespace aweProject.Controllers
             ressources.Id = Guid.NewGuid();
             ressources.SiteId = Guid.Empty;
             ressources.OrderLog = DateTime.Now.ToString() + ", ";
+            ressources.Standort = "Lager";
             //ressources.OrderLog = "29/06/2021 19:11:53, 30/06/2021 19:11:53, 07/07/2021 19:11:53, 14/07/2021 16:52:13, 18/07/2021 14:01:33, ";
             ressources.IsInStorage = true;
             _context.Add(ressources);
@@ -73,7 +74,7 @@ namespace aweProject.Controllers
             if (ModelState.IsValid)
             {
                 try
-                {
+                {   
                     _context.Update(ressources);
                     await _context.SaveChangesAsync();
                 }
@@ -120,6 +121,26 @@ namespace aweProject.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> PostDelete(Guid id)
         {
+            var orderList = await _context.Order.ToListAsync();
+            foreach (Order order in orderList)
+            {
+                if (order.RessourceId == id)
+                {
+                    _context.Order.Remove(order);
+                    await _context.SaveChangesAsync();
+                }
+            }
+
+            var retourenList = await _context.Retouren.ToListAsync();
+            foreach (Retouren retoure in retourenList)
+            {
+                if (retoure.RessourceId == id)
+                {
+                    _context.Retouren.Remove(retoure);
+                    await _context.SaveChangesAsync();
+                }
+            }
+
             var session = await _context.Ressources.FindAsync(id);
             _context.Ressources.Remove(session);
             await _context.SaveChangesAsync();

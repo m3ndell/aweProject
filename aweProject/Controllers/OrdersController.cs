@@ -30,12 +30,14 @@ namespace aweProject.Controllers
         }
 
         public async Task<IActionResult> Checkout(Guid RessourceId, Guid SiteId, Guid OrderId) {
-            Ressources session = await _context.Ressources.FindAsync(RessourceId);
+            Ressources ressource = await _context.Ressources.FindAsync(RessourceId);
             Order order = await _context.Order.FindAsync(OrderId);
+            SiteManagement site = await _context.SiteManagement.FindAsync(SiteId);
 
-            session.SiteId = SiteId;
-            session.IsInStorage = false;
-            session.OrderLog = session.OrderLog + DateTime.Now.ToString() + ", ";
+            ressource.SiteId = SiteId;
+            ressource.IsInStorage = false;
+            ressource.OrderLog = ressource.OrderLog + DateTime.Now.ToString() + ", ";
+            ressource.Standort = site.Name;
             order.IsActive = true;
             order.IsClosed = false;
             order.CheckOutTime = DateTime.Now;

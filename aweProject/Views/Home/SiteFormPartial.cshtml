@@ -22,27 +22,36 @@
                     int i = 1;
                     foreach (Ressources item in from item in Model.RessourcesList where item.IsInStorage == true let Id = item.Id select item)
                     {
-                        <tr>
-                            <th scope="row">@i</th>
-                            <td scope="row">@item.Name</td>
-                            <td scope="row">@item.Type</td>
-                            <td scope="row">@item.Standort</td>
-                            @{
-                                var orders = Model.OrderList;
-                                if (orders.Exists(x => x.RessourceId == item.Id) && orders.Find(x => x.RessourceId == item.Id).IsActive == false)
-                                {
-                                    <td scope="row">
-                                        <button type="button" class="btn btn-warning">Anfrage in Bearbeitung <i class="fas fa-hourglass-half"></i></button>
-                                    </td>
-                                }
-                                else
-                                {
-                                    <td scope="row">
-                                        <button type="button" class="btn btn-outline-dark" onclick="RequestRessource('@item.Id')">Ressource anfordern <i class="fas fa-check fa-fw"></i></button>
-                                    </td>
-                                }
-                            }
-                        </tr>
+                                    <tr>
+                                        <th scope="row">@i</th>
+                                        <td scope="row">@item.Name</td>
+                                        <td scope="row">@item.Type</td>
+                                        <td scope="row">@item.Standort</td>
+                                        @{
+                                            var orders = Model.OrderList;
+                                            bool checkStateOrder = false;
+                                            foreach (var order in orders)
+                                            {
+                                                if (order.RessourceId == item.Id && order.IsClosed == false && order.IsActive == false)
+                                                {
+                                                    checkStateOrder = true;
+                                                    break;
+                                                }
+                                            }
+                                            if (checkStateOrder)
+                                            {
+                                                <td scope="row">
+                                                    <button type="button" class="btn btn-warning">Anfrage in Bearbeitung <i class="fas fa-hourglass-half"></i></button>
+                                                </td>
+                                            }
+                                            else
+                                            {
+                                                <td scope="row">
+                                                    <button type="button" class="btn btn-outline-dark" onclick="RequestRessource('@item.Id')">Ressource anfordern <i class="fas fa-check fa-fw"></i></button>
+                                                </td>
+                                            }
+                                        }
+                                    </tr>
                         i++;
                     }
                 }
@@ -80,8 +89,17 @@
                             <td scope="row">@item.Name</td>
                             <td scope="row">@item.Type</td>
                             @{
-                                var retoure = Model.RetourenList;
-                                if (retoure.Exists(x => x.RessourceId == item.Id) && retoure.Find(x => x.RessourceId == item.Id).IsActive == false)
+                                var retoures = Model.RetourenList;
+                                bool checkStateRetoure = false;
+                                foreach (var retoure in retoures)
+                                {
+                                    if (retoure.RessourceId == item.Id && retoure.IsActive == false)
+                                    {
+                                        checkStateRetoure = true;
+                                        break;
+                                    }
+                                }
+                                if (checkStateRetoure)
                                 {
                                     <td scope="row">
                                         <button type="button" class="btn btn-warning">Anfrage in Bearbeitung <i class="fas fa-hourglass-half"></i></button>

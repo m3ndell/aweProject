@@ -31,17 +31,19 @@ namespace aweProject.Controllers
 
         // TODO: Order löschen
         public async Task<IActionResult> CheckIn(Guid RessourceId, Guid SiteId, Guid RetourenId, Guid OrderId) {
-            Ressources session = await _context.Ressources.FindAsync(RessourceId);
+            Ressources ressource = await _context.Ressources.FindAsync(RessourceId);
             Retouren retouren = await _context.Retouren.FindAsync(RetourenId);
             Order order = await _context.Order.FindAsync(OrderId);
 
-            session.SiteId = SiteId;
-            session.IsInStorage = true;
-            session.OrderLog = session.OrderLog + DateTime.Now.ToString() + ", ";
+            order.IsClosed = true;
+            order.IsActive = false;
+            ressource.SiteId = SiteId;
+            ressource.IsInStorage = true;
+            ressource.OrderLog = ressource.OrderLog + DateTime.Now.ToString() + ", ";
+            ressource.Standort = "Lager";
             retouren.IsActive = true;
             retouren.CheckInTime = DateTime.Now;
-            order.IsClosed = true;
-
+            
             await _context.SaveChangesAsync();
 
             return PartialView("RetourenPartial", new SiteRetourenRessources(await _context.Ressources.ToListAsync(), await _context.Retouren.ToListAsync(), await _context.SiteManagement.ToListAsync(), await _context.Order.ToListAsync()));
