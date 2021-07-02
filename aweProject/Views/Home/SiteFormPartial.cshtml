@@ -81,7 +81,7 @@
                             <td scope="row">@item.Type</td>
                             @{
                                 var retoure = Model.RetourenList;
-                                if (retoure.Exists(x => x.RessourceId == item.Id))
+                                if (retoure.Exists(x => x.RessourceId == item.Id) && retoure.Find(x => x.RessourceId == item.Id).IsActive == false)
                                 {
                                     <td scope="row">
                                         <button type="button" class="btn btn-warning">Anfrage in Bearbeitung <i class="fas fa-hourglass-half"></i></button>
