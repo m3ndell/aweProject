@@ -66,6 +66,25 @@ namespace aweProject.Controllers
 
             return PartialView("SiteFormPartial", new SiteRessource(SiteId, await _context.Ressources.ToListAsync()));
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public string RequestRessource(Guid RessourceId, Guid SiteId)
+        {
+            Debug.WriteLine("Hello1");
+            Order order = new Order();
+            order.OrderId = Guid.NewGuid();
+            order.OrderTime = DateTime.Now;
+            order.RessourceId = RessourceId;
+            order.SiteId = SiteId;
+            order.CheckOutTime = DateTime.Now;
+            order.IsActive = true;
+            Debug.WriteLine("2");
+            _context.Add(order);
+            _context.SaveChangesAsync();
+            Debug.WriteLine("3");
+            return ("Successful");
+        }
     }
 }
 

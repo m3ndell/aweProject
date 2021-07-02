@@ -6,7 +6,8 @@
 
 <h2 id="ressources">Welcome</h2>
 <hr />
-
+<form id="ConfirmationPanel">
+</form>
 <div class="card border-dark">
     <div class="card-header pl-3 pb-0 pt-2">
         <h4>Baustelle verwalten</h4>
@@ -59,4 +60,14 @@
             }
         );
     };
+
+    function RequestRessource(Id) {
+        var SiteId = $("#SiteSelect").val();
+        console.log(SiteId);
+        $.get("@Url.Action("RequestRessource", "Home")", { RessourceId: Id, SiteId: SiteId}, function (data) {
+         alert(data);
+     });
+    };
+
+
 </script>

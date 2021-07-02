@@ -11,8 +11,10 @@ namespace aweProject.Models
         public Guid OrderId { get; set; }
 
         public DateTime OrderTime { get; set; }
-        public Ressources Ressource { get; set; }
+        public Guid RessourceId { get; set; }
+        public Guid SiteId { get; set; }
         public DateTime CheckOutTime { get; set; }
-        public Boolean IsActive { get; set; }
+        public bool IsActive { get; set; }
+
     }
 }
