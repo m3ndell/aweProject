@@ -10,8 +10,8 @@ using aweProject.Models;
 namespace aweProject.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20210629114507_db2")]
-    partial class db2
+    [Migration("20210702091722_database1")]
+    partial class database1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -83,11 +83,11 @@ namespace aweProject.Migrations
 
                     b.Property<DateTime>("OrderTime");
 
-                    b.Property<Guid?>("RessourceId");
+                    b.Property<Guid>("RessourceId");
+
+                    b.Property<Guid>("SiteId");
 
                     b.HasKey("OrderId");
-
-                    b.HasIndex("RessourceId");
 
                     b.ToTable("Order");
                 });
@@ -98,6 +98,8 @@ namespace aweProject.Migrations
                         .ValueGeneratedOnAdd();
 
                     b.Property<DateTime>("BuyDate");
+
+                    b.Property<bool>("IsInStorage");
 
                     b.Property<string>("Name")
                         .IsRequired();
@@ -264,13 +266,6 @@ namespace aweProject.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
-                });
-
-            modelBuilder.Entity("aweProject.Models.Order", b =>
-                {
-                    b.HasOne("aweProject.Models.Ressources", "Ressource")
-                        .WithMany()
-                        .HasForeignKey("RessourceId");
                 });
 
             modelBuilder.Entity("aweProject.Models.Retouren", b =>

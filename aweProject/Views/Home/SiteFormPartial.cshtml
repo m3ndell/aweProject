@@ -1,1 +1,105 @@
-﻿
+﻿@model aweProject.Models.SiteRessource
+
+<div id="SiteForm">
+    <div class="card border-dark" id="SiteFormPartialCard">
+        <div class="card-header pl-3 pb-0 pt-2">
+            <h4>Auftrag anlegen</h4>
+        </div>
+        <div class="card-body">
+            <h3>Verfügbare Ressourcen</h3>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Typ</th>
+                    <th scope="col">Standort</th>
+                    <th scope="col"></th>
+                </tr>
+                </thead>
+                <tbody>
+                @{
+                    int i = 1;
+                    foreach (Ressources item in from item in Model.RessourcesList where item.IsInStorage == true let Id = item.Id select item)
+                    {
+                        <tr>
+                            <th scope="row">@i</th>
+                            <td scope="row">@item.Name</td>
+                            <td scope="row">@item.Type</td>
+                            <td scope="row">@item.Standort</td>
+                            @{
+                                var orders = Model.OrderList;
+                                if (orders.Exists(x => x.RessourceId == item.Id) && orders.Find(x => x.RessourceId == item.Id).IsActive == false)
+                                {
+                                    <td scope="row">
+                                        <button type="button" class="btn btn-warning">Anfrage in Bearbeitung <i class="fas fa-hourglass-half"></i></button>
+                                    </td>
+                                }
+                                else
+                                {
+                                    <td scope="row">
+                                        <button type="button" class="btn btn-outline-dark" onclick="RequestRessource('@item.Id')">Ressource anfordern <i class="fas fa-check fa-fw"></i></button>
+                                    </td>
+                                }
+                            }
+                        </tr>
+                        i++;
+                    }
+                }
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="card border-dark" id="SiteFormPartialCard">
+        <div class="card-header pl-3 pb-0 pt-2">
+            <h4>Zugeordnete Ressourcen</h4>
+        </div>
+        <div class="card-body">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Typ</th>
+                    <th scope="col"></th>
+                </tr>
+                </thead>
+                <tbody>
+                @{
+                    int j = 1;
+                    foreach (Ressources item in from item in Model.RessourcesList where item.SiteId == Model.Id let Id = item.Id select item)
+                    {
+                        if (item.IsInStorage)
+                        {
+                            continue;
+                        }
+                        <tr>
+                            <th scope="row">@j</th>
+                            <td scope="row">@item.Name</td>
+                            <td scope="row">@item.Type</td>
+                            @{
+                                var retoure = Model.RetourenList;
+                                if (retoure.Exists(x => x.RessourceId == item.Id))
+                                {
+                                    <td scope="row">
+                                        <button type="button" class="btn btn-warning">Anfrage in Bearbeitung <i class="fas fa-hourglass-half"></i></button>
+                                    </td>
+                                }
+                                else
+                                {
+                                    <td scope="row">
+                                        <button type="button" class="btn btn-outline-dark" onclick="RequestRetoure('@item.Id')">Ressource einlagern <i class="fas fa-check fa-fw"></i></button>
+                                    </td>
+                                }
+                            }
+                        </tr>
+                        j++;
+                    }
+                }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

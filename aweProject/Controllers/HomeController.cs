@@ -53,7 +53,25 @@ namespace aweProject.Controllers
 
         public async Task<IActionResult> GetCreate(Guid id)
         {
-            return PartialView("SiteFormPartial", new SiteRessource(id, await _context.Ressources.ToListAsync()));
+            return PartialView("SiteFormPartial", new SiteRessource(id, await _context.Ressources.ToListAsync(), await _context.Order.ToListAsync(), await _context.Retouren.ToListAsync()));
+        }
+
+        public async Task<IActionResult> RequestRessource(Guid RessourceId, Guid SiteId)
+        {
+            Order order = new Order(Guid.NewGuid(), DateTime.Now, RessourceId, SiteId, DateTime.Now, false, false);
+            _context.Add(order);
+            await _context.SaveChangesAsync();
+
+            return await GetCreate(SiteId);
+        }
+
+        public async Task<IActionResult> RequestRetoure(Guid RessourceId, Guid SiteId)
+        {
+            Retouren retouren = new Retouren(Guid.NewGuid(), DateTime.Now, RessourceId, SiteId, DateTime.Now, false);
+            _context.Add(retouren);
+            await _context.SaveChangesAsync();
+
+            return await GetCreate(SiteId);
         }
     }
 }
