@@ -1,47 +1,27 @@
-﻿@model IEnumerable<aweProject.Models.Order>
+﻿@using Microsoft.EntityFrameworkCore
+@model SiteOrderRessources
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<h2>Index</h2>
+<partial name="OrderPartial" />
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.OrderTime)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CheckOutTime)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IsActive)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.OrderTime)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CheckOutTime)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsActive)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.OrderId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.OrderId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.OrderId">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<form id="OrderCardForm">
+
+</form>
+
+<script>
+
+    function Checkout(SiteId, RessourceId, OrderId) {
+        $.get("@Url.Action("Checkout", "Orders")", { RessourceId: RessourceId, SiteId: SiteId, OrderId: OrderId })
+            .done(function (data) {
+                $("#OrderCard").replaceWith(data);
+            })
+            .fail(function(status) {
+                    alert("HTTP Error Code " + status.status);
+                }
+            );
+    };
+
+</script>
