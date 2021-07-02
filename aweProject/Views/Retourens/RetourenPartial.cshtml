@@ -1,7 +1,7 @@
 ﻿@model aweProject.Models.SiteRetourenRessources
 
 <div id="RetourenCard">
-    <div class="card border-dark">
+    <div class="card border-dark" id="SiteFormPartialCard">
         <div class="card-header pl-3 pb-0 pt-2">
             <h4>Offene Retouren</h4>
         </div>
@@ -23,6 +23,7 @@
                     {
                         if (retouren.IsActive == false)
                         {
+                            Order order = Model.OrderList.Find(x => x.RessourceId == retouren.RessourceId);
                             SiteManagement site = Model.SiteList.Find(x => x.Id == retouren.SiteId);
                             Ressources ressources = Model.RessourcesList.Find(x => x.Id == retouren.RessourceId);
                             if (site == null || ressources == null)
@@ -36,7 +37,7 @@
                                 <td scope="row">@ressources.Name</td>
                                 <td scope="row">@retouren.RetourenTime</td>
                                 <td scope="row">
-                                    <button type="button" class="btn btn-outline-dark" onclick="CheckIn('@retouren.SiteId', '@retouren.RessourceId', '@retouren.RetourenId')">Ressource einlagern <i class="fas fa-check fa-fw"></i></button>
+                                    <button type="button" class="btn btn-outline-dark" onclick="CheckIn('@retouren.SiteId', '@retouren.RessourceId', '@retouren.RetourenId', '@order.OrderId')">Ressource einlagern <i class="fas fa-check fa-fw"></i></button>
                                 </td>
                             </tr>
                             i++;
@@ -51,7 +52,7 @@
 
     <div class="card border-dark" id="SiteFormPartialCard">
         <div class="card-header pl-3 pb-0 pt-2">
-            <h4>Aktive Aufträge</h4>
+            <h4>Abgeschlossene Retouren</h4>
         </div>
         <div class="card-body">
             <table class="table">

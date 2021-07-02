@@ -21,7 +21,7 @@ namespace aweProject.Controllers
         // GET: Retourens
         public async Task<IActionResult> Index()
         {
-            return View(new SiteRetourenRessources(await _context.Ressources.ToListAsync(), await _context.Retouren.ToListAsync(), await _context.SiteManagement.ToListAsync()));
+            return View(new SiteRetourenRessources(await _context.Ressources.ToListAsync(), await _context.Retouren.ToListAsync(), await _context.SiteManagement.ToListAsync(), await _context.Order.ToListAsync()));
         }
 
         private bool RetourenExists(Guid id)
@@ -30,19 +30,21 @@ namespace aweProject.Controllers
         }
 
         // TODO: Order löschen
-        public async Task<IActionResult> CheckIn(Guid RessourceId, Guid SiteId, Guid RetourenId) {
+        public async Task<IActionResult> CheckIn(Guid RessourceId, Guid SiteId, Guid RetourenId, Guid OrderId) {
             Ressources session = await _context.Ressources.FindAsync(RessourceId);
             Retouren retouren = await _context.Retouren.FindAsync(RetourenId);
+            Order order = await _context.Order.FindAsync(OrderId);
 
             session.SiteId = SiteId;
             session.IsInStorage = true;
             session.OrderLog = session.OrderLog + DateTime.Now.ToString() + ", ";
             retouren.IsActive = true;
             retouren.CheckInTime = DateTime.Now;
+            order.IsClosed = true;
 
             await _context.SaveChangesAsync();
 
-            return PartialView("RetourenPartial", new SiteRetourenRessources(await _context.Ressources.ToListAsync(), await _context.Retouren.ToListAsync(), await _context.SiteManagement.ToListAsync()));
+            return PartialView("RetourenPartial", new SiteRetourenRessources(await _context.Ressources.ToListAsync(), await _context.Retouren.ToListAsync(), await _context.SiteManagement.ToListAsync(), await _context.Order.ToListAsync()));
         }
     }
 }

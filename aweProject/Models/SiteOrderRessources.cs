@@ -9,11 +9,13 @@ namespace aweProject.Models {
         public List<Ressources> RessourcesList { get; set; }
         public List<Order> OrderList { get; set; }
         public List<SiteManagement> SiteList { get; set; }
+        public List<Retouren> RetourenList { get; set; }
 
-        public SiteOrderRessources(List<Ressources> Ressources, List<Order> Orders, List<SiteManagement> SiteList) {
+        public SiteOrderRessources(List<Ressources> Ressources, List<Order> Orders, List<SiteManagement> SiteList, List<Retouren> RetourenList) {
             this.RessourcesList = Ressources;
             this.OrderList = Orders;
             this.SiteList = SiteList;
+            this.RetourenList = RetourenList;
         }
     }
 }

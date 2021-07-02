@@ -29,7 +29,7 @@
                             <td scope="row">@item.Standort</td>
                             @{
                                 var orders = Model.OrderList;
-                                if (orders.Exists(x => x.RessourceId == item.Id))
+                                if (orders.Exists(x => x.RessourceId == item.Id) && orders.Find(x => x.RessourceId == item.Id).IsActive == false)
                                 {
                                     <td scope="row">
                                         <button type="button" class="btn btn-warning">Anfrage in Bearbeitung <i class="fas fa-hourglass-half"></i></button>

@@ -1,48 +1,48 @@
 ﻿@model aweProject.Models.SiteOrderRessources
 
 <div id="OrderCard">
-    <div class="card border-dark">
+    <div class="card border-dark" id="SiteFormPartialCard">
         <div class="card-header pl-3 pb-0 pt-2">
             <h4>Offene Aufträge</h4>
         </div>
         <div class="card-body">
             <table class="table">
                 <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Baustellenname</th>
-                    <th scope="col">Ressourcenname</th>
-                    <th scope="col">Auftragsdatum</th>
-                    <th scope="col"></th>
-                </tr>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Baustellenname</th>
+                        <th scope="col">Ressourcenname</th>
+                        <th scope="col">Auftragsdatum</th>
+                        <th scope="col"></th>
+                    </tr>
                 </thead>
                 <tbody>
-                @{
-                    int i = 1;
-                    foreach (Order order in Model.OrderList)
-                    {
-                        if (order.IsActive == false)
+                    @{
+                        int i = 1;
+                        foreach (Order order in Model.OrderList)
                         {
-                            SiteManagement site = Model.SiteList.Find(x => x.Id == order.SiteId);
-                            Ressources ressources = Model.RessourcesList.Find(x => x.Id == order.RessourceId);
-                            if (site == null || ressources == null)
+                            if (order.IsActive == false)
                             {
-                                continue;
-                            }
+                                SiteManagement site = Model.SiteList.Find(x => x.Id == order.SiteId);
+                                Ressources ressources = Model.RessourcesList.Find(x => x.Id == order.RessourceId);
+                                if (site == null || ressources == null)
+                                {
+                                    continue;
+                                }
 
-                            <tr>
-                                <th scope="row">@i</th>
-                                <td scope="row">@site.Name</td>
-                                <td scope="row">@ressources.Name</td>
-                                <td scope="row">@order.OrderTime</td>
-                                <td scope="row">
-                                    <button type="button" class="btn btn-outline-dark" onclick="Checkout('@order.SiteId', '@order.RessourceId', '@order.OrderId')">Ressource zuordnen <i class="fas fa-check fa-fw"></i></button>
-                                </td>
-                            </tr>
-                            i++;
+                                <tr>
+                                    <th scope="row">@i</th>
+                                    <td scope="row">@site.Name</td>
+                                    <td scope="row">@ressources.Name</td>
+                                    <td scope="row">@order.OrderTime</td>
+                                    <td scope="row">
+                                        <button type="button" class="btn btn-outline-dark" onclick="Checkout('@order.SiteId', '@order.RessourceId', '@order.OrderId')">Ressource zuordnen <i class="fas fa-check fa-fw"></i></button>
+                                    </td>
+                                </tr>
+                                i++;
+                            }
                         }
                     }
-                }
 
                 </tbody>
             </table>
@@ -56,39 +56,88 @@
         <div class="card-body">
             <table class="table">
                 <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Baustellenname</th>
-                    <th scope="col">Ressourcenname</th>
-                    <th scope="col">Auftragsdatum</th>
-                    <th scope="col">Checkoutdatum</th>
-                </tr>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Baustellenname</th>
+                        <th scope="col">Ressourcenname</th>
+                        <th scope="col">Auftragsdatum</th>
+                        <th scope="col">Checkoutdatum</th>
+                    </tr>
                 </thead>
                 <tbody>
-                @{
-                    int j = 1;
-                    foreach (Order order in Model.OrderList)
-                    {
-                        if (order.IsActive == true)
+                    @{
+                        int j = 1;
+                        foreach (Order order in Model.OrderList)
                         {
-                            SiteManagement site = Model.SiteList.Find(x => x.Id == order.SiteId);
-                            Ressources ressources = Model.RessourcesList.Find(x => x.Id == order.RessourceId);
-                            if (site == null || ressources == null)
+                            if (order.IsActive == true && order.IsClosed== false)
                             {
-                                continue;
-                            }
+                                SiteManagement site = Model.SiteList.Find(x => x.Id == order.SiteId);
+                                Ressources ressources = Model.RessourcesList.Find(x => x.Id == order.RessourceId);
+                                if (site == null || ressources == null)
+                                {
+                                    continue;
+                                }
 
-                            <tr>
-                                <th scope="row">@j</th>
-                                <td scope="row">@site.Name</td>
-                                <td scope="row">@ressources.Name</td>
-                                <td scope="row">@order.OrderTime</td>
-                                <td scope="row">@order.CheckOutTime.ToString()</td>
-                            </tr>
-                            j++;
+                                <tr>
+                                    <th scope="row">@j</th>
+                                    <td scope="row">@site.Name</td>
+                                    <td scope="row">@ressources.Name</td>
+                                    <td scope="row">@order.OrderTime</td>
+                                    <td scope="row">@order.CheckOutTime.ToString()</td>
+                                </tr>
+                                j++;
+                            }
                         }
                     }
-                }
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="card border-dark" id="SiteFormPartialCard">
+        <div class="card-header pl-3 pb-0 pt-2">
+            <h4>Abgeschlossene Aufträge</h4>
+        </div>
+        <div class="card-body">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Baustellenname</th>
+                        <th scope="col">Ressourcenname</th>
+                        <th scope="col">Auftragsdatum</th>
+                        <th scope="col">Checkoutdatum</th>
+                        <th scope="col">Checkindatum</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        int h = 1;
+                        foreach (Order order in Model.OrderList)
+                        {
+                            if (order.IsClosed == true)
+                            {
+                                SiteManagement site = Model.SiteList.Find(x => x.Id == order.SiteId);
+                                Ressources ressources = Model.RessourcesList.Find(x => x.Id == order.RessourceId);
+                                Retouren retouren = Model.RetourenList.Find(x => x.RessourceId == order.RessourceId);
+                                if (site == null || ressources == null)
+                                {
+                                    continue;
+                                }
+
+                                <tr>
+                                    <th scope="row">@h</th>
+                                    <td scope="row">@site.Name</td>
+                                    <td scope="row">@ressources.Name</td>
+                                    <td scope="row">@order.OrderTime</td>
+                                    <td scope="row">@order.CheckOutTime.ToString()</td>
+                                    <td scope="row">@retouren.CheckInTime.ToString()</td>
+                                </tr>
+                                j++;
+                            }
+                        }
+                    }
 
                 </tbody>
             </table>

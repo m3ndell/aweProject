@@ -58,7 +58,7 @@ namespace aweProject.Controllers
 
         public async Task<IActionResult> RequestRessource(Guid RessourceId, Guid SiteId)
         {
-            Order order = new Order(Guid.NewGuid(), DateTime.Now, RessourceId, SiteId, DateTime.Now, false);
+            Order order = new Order(Guid.NewGuid(), DateTime.Now, RessourceId, SiteId, DateTime.Now, false, false);
             _context.Add(order);
             await _context.SaveChangesAsync();
 

@@ -15,15 +15,17 @@ namespace aweProject.Models
         public Guid SiteId { get; set; }
         public DateTime CheckOutTime { get; set; }
         public bool IsActive { get; set; }
+        public bool IsClosed { get; set; }
 
-        public Order(Guid orderId, DateTime orderTime, Guid ressourceId, Guid siteId, DateTime checkOutTime, bool isActive)
+        public Order(Guid orderId, DateTime orderTime, Guid ressourceId, Guid siteId, DateTime checkOutTime, bool isActive, bool IsClosed)
         {
-            OrderId = orderId;
-            OrderTime = orderTime;
-            RessourceId = ressourceId;
-            SiteId = siteId;
-            CheckOutTime = checkOutTime;
-            IsActive = isActive;
+            this.OrderId = orderId;
+            this.OrderTime = orderTime;
+            this.RessourceId = ressourceId;
+            this.SiteId = siteId;
+            this.CheckOutTime = checkOutTime;
+            this.IsActive = isActive;
+            this.IsClosed = IsClosed;
         }
     }
 }
