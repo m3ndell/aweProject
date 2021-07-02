@@ -21,7 +21,7 @@ namespace aweProject.Controllers
         // GET: Orders
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Order.ToListAsync());
+            return View(new SiteOrderRessources(await _context.Ressources.ToListAsync(), await _context.Order.ToListAsync(), await _context.SiteManagement.ToListAsync()));
         }
 
         // GET: Orders/Details/5
@@ -39,7 +39,7 @@ namespace aweProject.Controllers
                 return NotFound();
             }
 
-            return View(order);
+            return View();
         }
 
         // GET: Orders/Create
@@ -62,7 +62,7 @@ namespace aweProject.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(order);
+            return View();
         }
 
         // GET: Orders/Edit/5
@@ -78,7 +78,7 @@ namespace aweProject.Controllers
             {
                 return NotFound();
             }
-            return View(order);
+            return View();
         }
 
         // POST: Orders/Edit/5
@@ -113,7 +113,7 @@ namespace aweProject.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(order);
+            return View();
         }
 
         // GET: Orders/Delete/5
@@ -131,7 +131,7 @@ namespace aweProject.Controllers
                 return NotFound();
             }
 
-            return View(order);
+            return View();
         }
 
         // POST: Orders/Delete/5
@@ -148,6 +148,21 @@ namespace aweProject.Controllers
         private bool OrderExists(Guid id)
         {
             return _context.Order.Any(e => e.OrderId == id);
+        }
+
+        public async Task<IActionResult> Checkout(Guid RessourceId, Guid SiteId, Guid OrderId) {
+            Ressources session = await _context.Ressources.FindAsync(RessourceId);
+            Order order = await _context.Order.FindAsync(OrderId);
+
+            session.SiteId = SiteId;
+            session.IsInStorage = false;
+            session.OrderLog = session.OrderLog + DateTime.Now.ToString() + ", ";
+            order.IsActive = true;
+            order.CheckOutTime = DateTime.Now;
+
+            await _context.SaveChangesAsync();
+
+            return PartialView("OrderPartial", new SiteOrderRessources(await _context.Ressources.ToListAsync(), await _context.Order.ToListAsync(), await _context.SiteManagement.ToListAsync()));
         }
     }
 }

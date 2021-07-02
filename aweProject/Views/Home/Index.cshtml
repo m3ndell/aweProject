@@ -5,7 +5,7 @@
 @model IEnumerable<aweProject.Models.SiteManagement>
 
 <h2 id="ressources">Welcome</h2>
-<hr />
+<hr/>
 <form id="ConfirmationPanel">
 </form>
 <div class="card border-dark">
@@ -29,45 +29,40 @@
 
 </form>
 
-
-
-
 <script>
     function Create() {
         var value = $("#SiteSelect").val();
-        console.log(value);
         $.get("@Url.Action("GetCreate", "Home")", { id: value })
-            .done(function (data) {
+            .done(function(data) {
                 $("#SiteFormPartial").replaceWith(data);
             })
-            .fail(function (status) {
-                alert("HTTP Error Code " + status.status);
-            }
-        );
-    };
-
-
-    function Checkout(Id) {
-        console.log(Id);
-        var SiteId = $("#SiteSelect").val();
-        console.log(SiteId);
-        $.get("@Url.Action("Checkout", "Home")", { RessourceId: Id, SiteId: SiteId })
-            .done(function (data) {
-                $("#SiteFormPartial").replaceWith(data);
-            })
-            .fail(function (status) {
-                alert("HTTP Error Code " + status.status);
-            }
-        );
+            .fail(function(status) {
+                    alert("HTTP Error Code " + status.status);
+                }
+            );
     };
 
     function RequestRessource(Id) {
         var SiteId = $("#SiteSelect").val();
-        console.log(SiteId);
-        $.get("@Url.Action("RequestRessource", "Home")", { RessourceId: Id, SiteId: SiteId}, function (data) {
-         alert(data);
-     });
+        $.get("@Url.Action("RequestRessource", "Home")", { RessourceId: Id, SiteId: SiteId })
+            .done(function (data) {
+                $("#SiteForm").replaceWith(data);
+            })
+            .fail(function(status) {
+                    alert("HTTP Error Code " + status.status);
+                }
+            );
     };
 
-
+    function RequestRetoure(Id) {
+        var SiteId = $("#SiteSelect").val();
+        $.get("@Url.Action("RequestRetoure", "Home")", { RessourceId: Id, SiteId: SiteId })
+            .done(function (data) {
+                $("#SiteForm").replaceWith(data);
+            })
+            .fail(function(status) {
+                    alert("HTTP Error Code " + status.status);
+                }
+            );
+    };
 </script>

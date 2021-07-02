@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using aweProject.Models;
 
 namespace aweProject.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210702091722_database1")]
+    partial class database1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -120,20 +122,16 @@ namespace aweProject.Migrations
 
             modelBuilder.Entity("aweProject.Models.Retouren", b =>
                 {
-                    b.Property<Guid>("RetourenId")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<DateTime>("CheckInTime");
+                    b.Property<DateTime>("DeliveryTime");
 
-                    b.Property<bool>("IsActive");
+                    b.Property<Guid?>("RessourcesId");
 
-                    b.Property<Guid>("RessourceId");
+                    b.HasKey("Id");
 
-                    b.Property<DateTime>("RetourenTime");
-
-                    b.Property<Guid>("SiteId");
-
-                    b.HasKey("RetourenId");
+                    b.HasIndex("RessourcesId");
 
                     b.ToTable("Retouren");
                 });
@@ -268,6 +266,13 @@ namespace aweProject.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("aweProject.Models.Retouren", b =>
+                {
+                    b.HasOne("aweProject.Models.Ressources", "Ressources")
+                        .WithMany()
+                        .HasForeignKey("RessourcesId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

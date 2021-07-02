@@ -53,37 +53,25 @@ namespace aweProject.Controllers
 
         public async Task<IActionResult> GetCreate(Guid id)
         {
-            return PartialView("SiteFormPartial", new SiteRessource(id, await _context.Ressources.ToListAsync()));
+            return PartialView("SiteFormPartial", new SiteRessource(id, await _context.Ressources.ToListAsync(), await _context.Order.ToListAsync(), await _context.Retouren.ToListAsync()));
         }
 
-        public async Task<IActionResult> Checkout(Guid RessourceId, Guid SiteId)
+        public async Task<IActionResult> RequestRessource(Guid RessourceId, Guid SiteId)
         {
-            var session = await _context.Ressources.FindAsync(RessourceId);
-            session.SiteId = SiteId;
-            session.IsInStorage = false;
-            session.OrderLog = session.OrderLog + DateTime.Now.ToString() + ", ";
+            Order order = new Order(Guid.NewGuid(), DateTime.Now, RessourceId, SiteId, DateTime.Now, false);
+            _context.Add(order);
             await _context.SaveChangesAsync();
 
-            return PartialView("SiteFormPartial", new SiteRessource(SiteId, await _context.Ressources.ToListAsync()));
+            return await GetCreate(SiteId);
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public string RequestRessource(Guid RessourceId, Guid SiteId)
+        public async Task<IActionResult> RequestRetoure(Guid RessourceId, Guid SiteId)
         {
-            Debug.WriteLine("Hello1");
-            Order order = new Order();
-            order.OrderId = Guid.NewGuid();
-            order.OrderTime = DateTime.Now;
-            order.RessourceId = RessourceId;
-            order.SiteId = SiteId;
-            order.CheckOutTime = DateTime.Now;
-            order.IsActive = true;
-            Debug.WriteLine("2");
-            _context.Add(order);
-            _context.SaveChangesAsync();
-            Debug.WriteLine("3");
-            return ("Successful");
+            Retouren retouren = new Retouren(Guid.NewGuid(), DateTime.Now, RessourceId, SiteId, DateTime.Now, false);
+            _context.Add(retouren);
+            await _context.SaveChangesAsync();
+
+            return await GetCreate(SiteId);
         }
     }
 }

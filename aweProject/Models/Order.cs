@@ -16,5 +16,14 @@ namespace aweProject.Models
         public DateTime CheckOutTime { get; set; }
         public bool IsActive { get; set; }
 
+        public Order(Guid orderId, DateTime orderTime, Guid ressourceId, Guid siteId, DateTime checkOutTime, bool isActive)
+        {
+            OrderId = orderId;
+            OrderTime = orderTime;
+            RessourceId = ressourceId;
+            SiteId = siteId;
+            CheckOutTime = checkOutTime;
+            IsActive = isActive;
+        }
     }
 }
