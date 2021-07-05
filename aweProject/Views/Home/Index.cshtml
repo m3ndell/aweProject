@@ -1,3 +1,62 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
+
+@model IEnumerable<aweProject.Models.SiteManagement>
+
+<h2 id="ressources">Welcome</h2>
+<hr />
+
+<div class="card border-dark">
+    <div class="card-header pl-3 pb-0 pt-2">
+        <h4>Baustelle verwalten</h4>
+    </div>
+    <div class="card-body">
+        <select id="SiteSelect" onchange="Create()" class="form-select" aria-label="Default select example">
+            <option selected>Baustelle auswählen</option>
+            @{
+                foreach (SiteManagement item in Model)
+                {
+                    <option value="@item.Id">@item.Name</option>
+                }
+            }
+
+        </select>
+    </div>
+</div>
+<form id="SiteFormPartial">
+
+</form>
+
+
+
+
+<script>
+    function Create() {
+        var value = $("#SiteSelect").val();
+        console.log(value);
+        $.get("@Url.Action("GetCreate", "Home")", { id: value })
+            .done(function (data) {
+                $("#SiteFormPartial").replaceWith(data);
+            })
+            .fail(function (status) {
+                alert("HTTP Error Code " + status.status);
+            }
+        );
+    };
+
+
+    function Checkout(Id) {
+        console.log(Id);
+        var SiteId = $("#SiteSelect").val();
+        console.log(SiteId);
+        $.get("@Url.Action("Checkout", "Home")", { RessourceId: Id, SiteId: SiteId })
+            .done(function (data) {
+                $("#SiteFormPartial").replaceWith(data);
+            })
+            .fail(function (status) {
+                alert("HTTP Error Code " + status.status);
+            }
+        );
+    };
+</script>

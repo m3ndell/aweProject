@@ -27,14 +27,13 @@ namespace aweProject.Models
         [DisplayFormat(DataFormatString = "{0:dd-MMM-yyyy}", ApplyFormatInEditMode = true)]
         public DateTime NextMaintenance { get; set; }
 
-        //[ReadOnly(true)]
-        //[DisplayFormat(DataFormatString = "{0:dd-MMM-yyyy}", ApplyFormatInEditMode = true)]
-        //public DateTime LastLend { get; set; }
-        //[ReadOnly(true)]
-        //[DisplayFormat(DataFormatString = "{0:dd-MMM-yyyy}", ApplyFormatInEditMode = true)]
-        //public DateTime LastStored { get; set; }
-
         [ReadOnly(true)]
         public string Standort { get; set; }
+
+        public Guid SiteId { get; set; }
+
+        public string OrderLog { get; set; }  
+
+        public bool IsInStorage { get; set; }
     }
 }

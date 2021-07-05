@@ -1,0 +1,79 @@
+﻿@model aweProject.Models.SiteRessource
+
+<div class="card border-dark" id="SiteFormPartialCard">
+    <div class="card-header pl-3 pb-0 pt-2">
+        <h4>Auftrag anlegen</h4>
+    </div>
+    <div class="card-body">
+        <h3>Verfügbare Ressourcen</h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Typ</th>
+                    <th scope="col">Standort</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    int i = 1;
+                    foreach (var item in Model.RessourcesList)
+                    {
+                        if (item.IsInStorage == true)
+                        {
+                            var Id = item.Id;
+                                <tr>
+                                    <th scope="row">@i</th>
+                                    <td scope="row">@item.Name</td>
+                                    <td scope="row">@item.Type</td>
+                                    <td scope="row">@item.Standort</td>
+                                    <td scope="row"><button type="button" class="btn btn-outline-dark" onclick="Checkout('@Id')">Ressource anfordern <i class="fas fa-check fa-fw"></i></button></td>
+                                </tr>
+                            i++;
+                        }
+                    }
+                }
+             
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="card border-dark" id="SiteFormPartialCard">
+    <div class="card-header pl-3 pb-0 pt-2">
+        <h4>Zugeordnete Ressourcen</h4>
+    </div>
+    <div class="card-body">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Typ</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    int j = 1;
+                    foreach (var item in Model.RessourcesList)
+                    {
+                        if (item.SiteId == Model.Id)
+                        {
+                            var Id = item.Id;
+                                <tr>
+                                    <th scope="row">@j</th>
+                                    <td scope="row">@item.Name</td>
+                                    <td scope="row">@item.Type</td>
+                                    <td scope="row"><button type="button" class="btn btn-outline-dark" onclick="">Ressource einlagern <i class="fas fa-check fa-fw"></i></button></td>
+                                </tr>
+                            j++;
+                        }
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

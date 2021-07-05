@@ -43,3 +43,12 @@ body {
 .navbar-nav > .active > a {
     text-color: #ffffff;
 }
+
+#DetailsPartial {
+    margin-top: 5%;
+}
+
+#SiteFormPartialCard {
+    margin-top: 5%;
+}
+
