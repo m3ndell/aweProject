@@ -40,8 +40,8 @@ namespace aweProject
                         Configuration.GetConnectionString("AppDbContextConnection")));
 
             services.AddIdentity<AppUser, IdentityRole>()
-                .AddEntityFrameworkStores<AppDbContext>();
-                .AddDefaultUI();
+                .AddEntityFrameworkStores<AppDbContext>()
+                .AddDefaultUI()
                 .AddDefaultTokenProviders();
                 
 
@@ -75,7 +75,7 @@ namespace aweProject
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
-            CreateUsersRoles(um, rm).Wait;
+            CreateUsersRoles(um, rm).Wait();
         }
         private async Task CreateUsersRoles(UserManager<AppUser> um, RoleManager<IdentityRole> rm)
         {
