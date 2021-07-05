@@ -75,6 +75,30 @@ namespace aweProject
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+            CreateUsersRoles(um, rm).Wait;
+        }
+        private async Task CreateUsersRoles(UserManager<AppUser> um, RoleManager<IdentityRole> rm)
+        {
+            AppUser user= await um.FindByNameAsync();
+            if(user== null)
+            {
+                user = new AppUser();
+            }
+            IdentityRole role= await rm.FindByNameAsync("Administrator");
+            await rm.CreateAsync(role);
+
+            if (role == null)
+            {
+                role=new IdentityRole("Administrator");
+                await rm.CreateAsync(role);
+            }
+
+            bool inrole= await um.IsInRoleAsync(user, "Administrator");
+            if (!inrole)
+            
+                await um.AddToRoleAsync(user, "Administrator");
+            
+            return;
         }
     }
 }
