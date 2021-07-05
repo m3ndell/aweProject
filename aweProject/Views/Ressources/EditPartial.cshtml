@@ -2,11 +2,19 @@
 
 <form id="row_@Model.Id">
     <div class="form-row border-bottom border-secondary align-items-start pt-1 pb-1 pl-0 pr-1">
+        <div hidden class="col-1 pl-0">
+            <input type="checkbox" value="@Model.IsInStorage" asp-for="IsInStorage" class="form-control" />
+            <small><span asp-validation-for="IsInStorage" class="text-danger"></span></small>
+            <input type="text" value="@Model.OrderLog" asp-for="OrderLog" class="form-control" />
+            <small><span asp-validation-for="OrderLog" class="text-danger"></span></small>
+            <input type="text" value="@Model.SiteId" asp-for="SiteId" class="form-control" />
+            <small><span asp-validation-for="SiteId" class="text-danger"></span></small>
+        </div>
         <div class="col-2 pl-0">
             <input type="text" asp-for="Name" class="form-control" />
             <small><span asp-validation-for="Name" class="text-danger"></span></small>
         </div>
-        <div class="col-2 pl-0">
+        <div class="col-1 pl-0">
             <input type="text" list="types" name="type" asp-for="Type" class="form-control" />
             <datalist id="types">
                 <option value="Werkzeug" />
@@ -26,8 +34,8 @@
             <input type="text" asp-for="NextMaintenance" class="form-control" />
             <small><span asp-validation-for="NextMaintenance" class="text-danger"></span></small>
         </div>
-        <div class="col-2 pl-0">
-            <input type="text" asp-for="Standort" class="form-control" />
+        <div hidden class="col-2 pl-0">
+            <input type="text" value="@Model.Standort" asp-for="Standort" class="form-control" />
             <small><span asp-validation-for="Standort" class="text-danger"></span></small>
         </div>
         <div class="col-2">

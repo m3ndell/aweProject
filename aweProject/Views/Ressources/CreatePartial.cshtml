@@ -3,11 +3,11 @@
 <form id="row_New">
     <div class="form-row border-bottom border-secondary align-items-start pt-1 pb-1 pl-0 pr-1">
         <div class="col-2 pl-0">
-            <input type="text" asp-for="Name" class="form-control" />
+            <input type="text" asp-for="Name" placeholder="Name" class="form-control" />
             <small><span asp-validation-for="Name" class="text-danger"></span></small>
         </div>
         <div class="col-2 pl-0">
-            <input type="text" list="types" name="type" asp-for="Type" class="form-control"/>
+            <input type="text" list="types" name="type" asp-for="Type" placeholder="Typ" class="form-control" />
             <datalist id="types">
                 <option value="Werkzeug" />
                 <option value="Fahrzeug" />
@@ -19,15 +19,15 @@
             <small><span asp-validation-for="Type" class="text-danger"></span></small>
         </div>
         <div class="col-2 pl-0">
-            <input type="text" asp-for="BuyDate" class="form-control" />
+            <input type="text" asp-for="BuyDate" placeholder="Kaufdatum" class="form-control" />
             <small><span asp-validation-for="BuyDate" class="text-danger"></span></small>
         </div>
         <div class="col-2 pl-0">
-            <input type="text" asp-for="NextMaintenance" class="form-control" />
+            <input type="text" asp-for="NextMaintenance" placeholder="Nächste Wartung" class="form-control" />
             <small><span asp-validation-for="NextMaintenance" class="text-danger"></span></small>
         </div>
-        <div class="col-2 pl-0">
-            <input type="text" asp-for="Standort" class="form-control" />
+        <div hidden class="col-2 pl-0">
+            <input type="text" asp-for="Standort" value="Lager" class="form-control" />
             <small><span asp-validation-for="Standort" class="text-danger"></span></small>
         </div>
         <div class="col-2">

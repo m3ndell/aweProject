@@ -7,11 +7,22 @@ namespace aweProject.Models
 {
     public class Retouren
     {
-        public Guid Id { get; set; }
+        public Guid RetourenId { get; set; }
 
-        public DateTime DeliveryTime { get; set; }
+        public DateTime RetourenTime { get; set; }
+        public Guid RessourceId { get; set; }
+        public Guid SiteId { get; set; }
+        public DateTime CheckInTime { get; set; }
+        public bool IsActive { get; set; }
 
-        public Ressources Ressources { get; set; }
-
+        public Retouren(Guid retourenId, DateTime retourenTime, Guid ressourceId, Guid siteId, DateTime checkInTime, bool isActive)
+        {
+            RetourenId = retourenId;
+            RetourenTime = retourenTime;
+            RessourceId = ressourceId;
+            SiteId = siteId;
+            CheckInTime = checkInTime;
+            IsActive = isActive;
+        }
     }
 }
