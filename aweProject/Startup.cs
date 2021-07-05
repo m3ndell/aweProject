@@ -79,13 +79,14 @@ namespace aweProject
         }
         private async Task CreateUsersRoles(UserManager<AppUser> um, RoleManager<IdentityRole> rm)
         {
-            AppUser user= await um.FindByNameAsync();
+            AppUser user= await um.FindByNameAsync("maxmustermann@gmail.com");
             if(user== null)
             {
-                user = new AppUser();
+                user = new AppUser(){Email = "maxmustermann@gmail.com", UserName="maxmustermann@gmail.com"};
+                await um.CreateAsync(user , "max_mustermann");
             }
             IdentityRole role= await rm.FindByNameAsync("Administrator");
-            await rm.CreateAsync(role);
+            
 
             if (role == null)
             {
