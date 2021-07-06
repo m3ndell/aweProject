@@ -34,7 +34,8 @@ namespace aweProject.Controllers
             Ressources ressource = await _context.Ressources.FindAsync(RessourceId);
             Retouren retouren = await _context.Retouren.FindAsync(RetourenId);
             Order order = await _context.Order.FindAsync(OrderId);
-
+            Console.WriteLine("übergebene id" + OrderId);
+            Console.WriteLine(order.OrderId);
             order.IsClosed = true;
             order.IsActive = false;
             ressource.SiteId = SiteId;

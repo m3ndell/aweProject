@@ -23,7 +23,7 @@
                     {
                         if (retouren.IsActive == false)
                         {
-                            Order order = Model.OrderList.Find(x => x.RessourceId == retouren.RessourceId);
+                            Order order = Model.OrderList.Find(x => x.RessourceId == retouren.RessourceId && x.IsClosed == false);
                             SiteManagement site = Model.SiteList.Find(x => x.Id == retouren.SiteId);
                             Ressources ressources = Model.RessourcesList.Find(x => x.Id == retouren.RessourceId);
                             if (site == null || ressources == null)
