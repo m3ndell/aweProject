@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -38,15 +39,19 @@ namespace aweProject
                     options.UseSqlServer(
                         Configuration.GetConnectionString("AppDbContextConnection")));
 
-            services.AddDefaultIdentity<AppUser>()
-                .AddEntityFrameworkStores<AppDbContext>();
+            services.AddIdentity<AppUser, IdentityRole>()
+                .AddEntityFrameworkStores<AppDbContext>()
+                .AddDefaultUI()
+                .AddDefaultTokenProviders();
+                
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
+            services.AddDbContext<AppDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("AppDbContextConnection")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env , UserManager<AppUser> um, RoleManager<IdentityRole> rm)
         {
             if (env.IsDevelopment())
             {
@@ -70,6 +75,30 @@ namespace aweProject
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+            CreateUsersRoles(um, rm).Wait();
+        }
+        private async Task CreateUsersRoles(UserManager<AppUser> um, RoleManager<IdentityRole> rm)
+        {
+            AppUser user= await um.FindByNameAsync();
+            if(user== null)
+            {
+                user = new AppUser();
+            }
+            IdentityRole role= await rm.FindByNameAsync("Administrator");
+            await rm.CreateAsync(role);
+
+            if (role == null)
+            {
+                role=new IdentityRole("Administrator");
+                await rm.CreateAsync(role);
+            }
+
+            bool inrole= await um.IsInRoleAsync(user, "Administrator");
+            if (!inrole)
+            
+                await um.AddToRoleAsync(user, "Administrator");
+            
+            return;
         }
     }
 }
