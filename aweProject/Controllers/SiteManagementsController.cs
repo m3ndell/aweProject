@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using aweProject.Models;
+using Microsoft.AspNetCore.Identity;
+using System.Security.Claims;
 
 namespace aweProject.Controllers
 {
@@ -53,11 +55,18 @@ namespace aweProject.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Description,manager")] SiteManagement siteManagement)
+        public async Task<IActionResult> Create([Bind("Id,Name,Description,ManagerId")] SiteManagement siteManagement)
         {
             if (ModelState.IsValid)
             {
+                ClaimsPrincipal currentUser = this.User;
+                var currentUserID = currentUser.FindFirst(ClaimTypes.NameIdentifier).Value;
+                Console.WriteLine(currentUserID);
+                Guid test =  Guid.Parse(currentUserID);
+                Console.WriteLine(currentUser);
+
                 siteManagement.Id = Guid.NewGuid();
+                siteManagement.ManagerId = test;
                 _context.Add(siteManagement);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

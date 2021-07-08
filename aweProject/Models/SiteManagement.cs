@@ -15,7 +15,6 @@ namespace aweProject.Models
         [Required]
         public string Description { get; set; }
 
-        [Required]
-        public int manager { get; set; }
+        public Guid ManagerId { get; set; }
     }
 }

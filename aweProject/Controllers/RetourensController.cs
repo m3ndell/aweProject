@@ -21,7 +21,7 @@ namespace aweProject.Controllers
         // GET: Retourens
         public async Task<IActionResult> Index()
         {
-            return View(new SiteRetourenRessources(await _context.Ressources.ToListAsync(), await _context.Retouren.ToListAsync(), await _context.SiteManagement.ToListAsync(), await _context.Order.ToListAsync()));
+            return View(new SiteOrderRessources(await _context.Ressources.ToListAsync(), await _context.Order.ToListAsync(), await _context.SiteManagement.ToListAsync(), await _context.Retouren.ToListAsync()));
         }
 
         private bool RetourenExists(Guid id)
@@ -47,7 +47,7 @@ namespace aweProject.Controllers
             
             await _context.SaveChangesAsync();
 
-            return PartialView("RetourenPartial", new SiteRetourenRessources(await _context.Ressources.ToListAsync(), await _context.Retouren.ToListAsync(), await _context.SiteManagement.ToListAsync(), await _context.Order.ToListAsync()));
+            return PartialView("RetourenPartial", new SiteOrderRessources(await _context.Ressources.ToListAsync(), await _context.Order.ToListAsync(), await _context.SiteManagement.ToListAsync(), await _context.Retouren.ToListAsync() ));
         }
     }
 }

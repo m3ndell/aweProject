@@ -23,10 +23,10 @@
                 <input asp-for="Description" class="form-control" />
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="manager" class="control-label"></label>
-                <input asp-for="manager" class="form-control" />
-                <span asp-validation-for="manager" class="text-danger"></span>
+            <div class="form-group" hidden>
+                <label asp-for="ManagerId" class="control-label"></label>
+                <input asp-for="ManagerId"  value="@Model.ManagerId" class="form-control" />
+                <span asp-validation-for="ManagerId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-default" />

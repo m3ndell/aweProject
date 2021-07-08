@@ -33,5 +33,7 @@ namespace aweProject.Models
 
         public DbSet<aweProject.Models.Retouren> Retouren { get; set; }
 
+        public DbSet<aweProject.Models.ProjectRole> ProjectRole { get; set; }
+
     }
 }
