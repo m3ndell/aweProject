@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace aweProject.Migrations
 {
-    public partial class Initial : Migration
+    public partial class _1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -45,6 +45,84 @@ namespace aweProject.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Order",
+                columns: table => new
+                {
+                    OrderId = table.Column<Guid>(nullable: false),
+                    OrderTime = table.Column<DateTime>(nullable: false),
+                    RessourceId = table.Column<Guid>(nullable: false),
+                    SiteId = table.Column<Guid>(nullable: false),
+                    CheckOutTime = table.Column<DateTime>(nullable: false),
+                    IsActive = table.Column<bool>(nullable: false),
+                    IsClosed = table.Column<bool>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Order", x => x.OrderId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ProjectRole",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    RoleName = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ProjectRole", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Ressources",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    Name = table.Column<string>(nullable: false),
+                    Type = table.Column<string>(nullable: false),
+                    BuyDate = table.Column<DateTime>(nullable: false),
+                    NextMaintenance = table.Column<DateTime>(nullable: false),
+                    Standort = table.Column<string>(nullable: true),
+                    SiteId = table.Column<Guid>(nullable: false),
+                    OrderLog = table.Column<string>(nullable: true),
+                    IsInStorage = table.Column<bool>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Ressources", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Retouren",
+                columns: table => new
+                {
+                    RetourenId = table.Column<Guid>(nullable: false),
+                    RetourenTime = table.Column<DateTime>(nullable: false),
+                    RessourceId = table.Column<Guid>(nullable: false),
+                    SiteId = table.Column<Guid>(nullable: false),
+                    CheckInTime = table.Column<DateTime>(nullable: false),
+                    IsActive = table.Column<bool>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Retouren", x => x.RetourenId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SiteManagement",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    Name = table.Column<string>(nullable: false),
+                    Description = table.Column<string>(nullable: false),
+                    ManagerId = table.Column<Guid>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SiteManagement", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -93,8 +171,8 @@ namespace aweProject.Migrations
                 name: "AspNetUserLogins",
                 columns: table => new
                 {
-                    LoginProvider = table.Column<string>(maxLength: 128, nullable: false),
-                    ProviderKey = table.Column<string>(maxLength: 128, nullable: false),
+                    LoginProvider = table.Column<string>(nullable: false),
+                    ProviderKey = table.Column<string>(nullable: false),
                     ProviderDisplayName = table.Column<string>(nullable: true),
                     UserId = table.Column<string>(nullable: false)
                 },
@@ -138,8 +216,8 @@ namespace aweProject.Migrations
                 columns: table => new
                 {
                     UserId = table.Column<string>(nullable: false),
-                    LoginProvider = table.Column<string>(maxLength: 128, nullable: false),
-                    Name = table.Column<string>(maxLength: 128, nullable: false),
+                    LoginProvider = table.Column<string>(nullable: false),
+                    Name = table.Column<string>(nullable: false),
                     Value = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -209,6 +287,21 @@ namespace aweProject.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
+                name: "Order");
+
+            migrationBuilder.DropTable(
+                name: "ProjectRole");
+
+            migrationBuilder.DropTable(
+                name: "Ressources");
+
+            migrationBuilder.DropTable(
+                name: "Retouren");
+
+            migrationBuilder.DropTable(
+                name: "SiteManagement");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

@@ -10,8 +10,8 @@ using aweProject.Models;
 namespace aweProject.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20210621122539_TestScaffold")]
-    partial class TestScaffold
+    [Migration("20210708111740_1")]
+    partial class _1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -72,6 +72,40 @@ namespace aweProject.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
+            modelBuilder.Entity("aweProject.Models.Order", b =>
+                {
+                    b.Property<Guid>("OrderId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("CheckOutTime");
+
+                    b.Property<bool>("IsActive");
+
+                    b.Property<bool>("IsClosed");
+
+                    b.Property<DateTime>("OrderTime");
+
+                    b.Property<Guid>("RessourceId");
+
+                    b.Property<Guid>("SiteId");
+
+                    b.HasKey("OrderId");
+
+                    b.ToTable("Order");
+                });
+
+            modelBuilder.Entity("aweProject.Models.ProjectRole", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("RoleName");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ProjectRole");
+                });
+
             modelBuilder.Entity("aweProject.Models.Ressources", b =>
                 {
                     b.Property<Guid>("Id")
@@ -79,10 +113,16 @@ namespace aweProject.Migrations
 
                     b.Property<DateTime>("BuyDate");
 
+                    b.Property<bool>("IsInStorage");
+
                     b.Property<string>("Name")
                         .IsRequired();
 
                     b.Property<DateTime>("NextMaintenance");
+
+                    b.Property<string>("OrderLog");
+
+                    b.Property<Guid>("SiteId");
 
                     b.Property<string>("Standort");
 
@@ -92,6 +132,44 @@ namespace aweProject.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Ressources");
+                });
+
+            modelBuilder.Entity("aweProject.Models.Retouren", b =>
+                {
+                    b.Property<Guid>("RetourenId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("CheckInTime");
+
+                    b.Property<bool>("IsActive");
+
+                    b.Property<Guid>("RessourceId");
+
+                    b.Property<DateTime>("RetourenTime");
+
+                    b.Property<Guid>("SiteId");
+
+                    b.HasKey("RetourenId");
+
+                    b.ToTable("Retouren");
+                });
+
+            modelBuilder.Entity("aweProject.Models.SiteManagement", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Description")
+                        .IsRequired();
+
+                    b.Property<Guid>("ManagerId");
+
+                    b.Property<string>("Name")
+                        .IsRequired();
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SiteManagement");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -160,11 +238,9 @@ namespace aweProject.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.Property<string>("LoginProvider")
-                        .HasMaxLength(128);
+                    b.Property<string>("LoginProvider");
 
-                    b.Property<string>("ProviderKey")
-                        .HasMaxLength(128);
+                    b.Property<string>("ProviderKey");
 
                     b.Property<string>("ProviderDisplayName");
 
@@ -195,11 +271,9 @@ namespace aweProject.Migrations
                 {
                     b.Property<string>("UserId");
 
-                    b.Property<string>("LoginProvider")
-                        .HasMaxLength(128);
+                    b.Property<string>("LoginProvider");
 
-                    b.Property<string>("Name")
-                        .HasMaxLength(128);
+                    b.Property<string>("Name");
 
                     b.Property<string>("Value");
 

@@ -95,7 +95,7 @@ namespace aweProject.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("Id,Name,Description,manager")] SiteManagement siteManagement)
+        public async Task<IActionResult> Edit(Guid id, [Bind("Id,Name,Description,ManagerId")] SiteManagement siteManagement)
         {
             if (id != siteManagement.Id)
             {

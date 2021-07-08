@@ -52,7 +52,7 @@ namespace aweProject
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, UserManager<AppUser> um, RoleManager<IdentityRole> rm)
         {
             if (env.IsDevelopment())
             {
@@ -76,8 +76,35 @@ namespace aweProject
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
-            
+
+            CreateUsersRoles(um, rm).Wait();
         }
         
+         private async Task CreateUsersRoles(UserManager<AppUser> um, RoleManager<IdentityRole> rm)
+        {
+            AppUser user = await um.FindByNameAsync("johndoe@gmail.com");
+            if (user== null)
+            {
+                user = new AppUser() { Email = "johndoe@gmail.com", UserName = "johndoe@gmail.com" };
+                await um.CreateAsync(user, "_JohnDoe123");
+
+            }
+            IdentityRole role = await rm.FindByNameAsync("Administrator");
+            if (role == null)
+            {
+                role = new IdentityRole("Administrator");
+                await rm.CreateAsync(role);
+            }
+
+            bool inrole = await um.IsInRoleAsync(user, "Administrator");
+            if (!inrole)
+            {
+                await um.AddToRoleAsync(user, "Administrator");
+                if (!inrole)
+                    await um.AddToRoleAsync(user, "Administrator");
+
+                return;
+            }
+        }
     }
 }
