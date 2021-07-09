@@ -10,8 +10,8 @@ using aweProject.Models;
 namespace aweProject.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20210708111740_1")]
-    partial class _1
+    [Migration("20210709100028_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -39,6 +39,9 @@ namespace aweProject.Migrations
                     b.Property<bool>("LockoutEnabled");
 
                     b.Property<DateTimeOffset?>("LockoutEnd");
+
+                    b.Property<string>("Name")
+                        .IsRequired();
 
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256);

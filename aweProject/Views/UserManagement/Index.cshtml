@@ -1,1 +1,43 @@
-﻿
+﻿@model IEnumerable<aweProject.Areas.Identity.Data.AppUser>
+
+@{
+    ViewData["Title"] = "About";
+}
+
+
+<div id="OrderCard">
+    <div class="card border-dark" id="SiteFormPartialCard">
+        <div class="card-header pl-3 pb-0 pt-2">
+            <h4>Registrierte Nutzer</h4>
+        </div>
+        <div class="card-body">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Name</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        int i = 1;
+                        foreach (var item in Model)
+                        {
+                            <tr>
+                                <th scope="row">@i</th>
+                                <td scope="row">@Html.DisplayFor(modelItem => item.Name)</td>
+                                <td scope="row"><a href='@Url.Action("Edit", "UserManagement", new { ID = item.Id })'>Edit</td>
+                            </tr>
+                            i++;
+                        }
+                    }
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<form id="test">
+
+</form>
