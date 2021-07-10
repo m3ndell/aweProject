@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace aweProject.Controllers
@@ -48,6 +49,17 @@ namespace aweProject.Controllers
 
         public async Task<IActionResult> Index()
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                ClaimsPrincipal currentUser = this.User;
+                var currentUserID = currentUser.FindFirst(ClaimTypes.NameIdentifier).Value;
+                Guid IdToString = Guid.Parse(currentUserID);
+                ViewBag.UserId = IdToString;
+            }
+            else
+            {
+                ViewBag.UserId = Guid.Empty;
+            }
             return View(await _context.SiteManagement.ToListAsync());
         }
 

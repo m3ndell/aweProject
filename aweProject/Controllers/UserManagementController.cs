@@ -21,8 +21,10 @@ namespace aweProject.Controllers
             _context = context;
         }
 
+        [Authorize(Roles ="Administrator")]
         public async Task<IActionResult> Index()
         {
+            ViewBag.Roles = await _context.Roles.ToListAsync();
             return View(_context.Users.ToList());
         }
 

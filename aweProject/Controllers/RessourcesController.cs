@@ -20,7 +20,7 @@ namespace aweProject.Controllers
         }
 
         // GET: Ressources
-        [Authorize(Roles = "Lagerist")]
+        [Authorize(Roles = "Lagerist, Administrator")]
         public async Task<IActionResult> Index()
         {
             return View(await _context.Ressources.ToListAsync());

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
 using aweProject.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace aweProject.Controllers
 {
@@ -17,17 +18,14 @@ namespace aweProject.Controllers
             this.roleManager = roleManager;
         }
 
-        public IActionResult Index()
-        {
-            return View();
-        }
-
+        [Authorize(Roles = "Administrator")]
         public IActionResult Create()
         {
             return View();
         }
 
         [HttpPost]
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> Create(ProjectRole role)
         {
             var roleExist = await roleManager.RoleExistsAsync(role.RoleName);

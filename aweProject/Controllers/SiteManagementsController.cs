@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using aweProject.Models;
 using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 
 namespace aweProject.Controllers
 {
@@ -16,13 +17,15 @@ namespace aweProject.Controllers
         private readonly AppDbContext _context;
 
         public SiteManagementsController(AppDbContext context)
-        {
+        { 
             _context = context;
         }
 
         // GET: SiteManagements
+        [Authorize(Roles = "Baustellenleiter, Administrator")]
         public async Task<IActionResult> Index()
         {
+            ViewBag.UserList = _context.Users.ToList();
             return View(await _context.SiteManagement.ToListAsync());
         }
 
@@ -61,12 +64,10 @@ namespace aweProject.Controllers
             {
                 ClaimsPrincipal currentUser = this.User;
                 var currentUserID = currentUser.FindFirst(ClaimTypes.NameIdentifier).Value;
-                Console.WriteLine(currentUserID);
-                Guid test =  Guid.Parse(currentUserID);
-                Console.WriteLine(currentUser);
+                Guid IdToString =  Guid.Parse(currentUserID);
 
                 siteManagement.Id = Guid.NewGuid();
-                siteManagement.ManagerId = test;
+                siteManagement.ManagerId = IdToString;
                 _context.Add(siteManagement);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

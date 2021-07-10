@@ -1,14 +1,11 @@
 ﻿@model IEnumerable<aweProject.Models.SiteManagement>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Baustellenverwaltung";
 }
 
-<h2>Index</h2>
+<h2>Baustellenverwaltung</h2>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
 <table class="table">
     <thead>
         <tr>
@@ -16,32 +13,47 @@
                 @Html.DisplayNameFor(model => model.Name)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Description)
+                Beschreibung
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ManagerId)
+                Baustellenleiter
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @{ 
+                        foreach (var user in ViewBag.UserList)
+                        {
+                            if (user.Id == item.ManagerId.ToString())
+                            {
+                                @user.Name
+                            }
+                        }
+                    }
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Bearbeiten</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Löschen</a>
+                </td>
+            </tr>
+        }
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ManagerId)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td><a asp-action="Create">Baustelle erstellen</a></td>
         </tr>
-}
     </tbody>
 </table>

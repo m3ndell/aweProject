@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using aweProject.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace aweProject.Controllers
 {
@@ -19,6 +20,7 @@ namespace aweProject.Controllers
         }
 
         // GET: Retourens
+        [Authorize(Roles = "Lagerist, Administrator")]
         public async Task<IActionResult> Index()
         {
             return View(new SiteOrderRessources(await _context.Ressources.ToListAsync(), await _context.Order.ToListAsync(), await _context.SiteManagement.ToListAsync(), await _context.Retouren.ToListAsync()));

@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<aweProject.Areas.Identity.Data.AppUser>
 
 @{
-    ViewData["Title"] = "About";
+    ViewData["Title"] = "Nutzerverwaltung";
 }
 
 
@@ -16,6 +16,7 @@
                     <tr>
                         <th scope="col">#</th>
                         <th scope="col">Name</th>
+                        <th scope="col">E-Mail</th>
                         <th scope="col"></th>
                     </tr>
                 </thead>
@@ -27,7 +28,8 @@
                             <tr>
                                 <th scope="row">@i</th>
                                 <td scope="row">@Html.DisplayFor(modelItem => item.Name)</td>
-                                <td scope="row"><a href='@Url.Action("Edit", "UserManagement", new { ID = item.Id })'>Edit</td>
+                                <td scope="row">@Html.DisplayFor(modelItem => item.Email)</td>
+                                <td scope="row"><a href='@Url.Action("Edit", "UserManagement", new { ID = item.Id })'>Berechtigungen bearbeiten</td>
                             </tr>
                             i++;
                         }
@@ -38,6 +40,41 @@
         </div>
     </div>
 </div>
-<form id="test">
 
-</form>
+<div id="OrderCard">
+    <div class="card border-dark" id="SiteFormPartialCard">
+        <div class="card-header pl-3 pb-0 pt-2">
+            <h4>Verfügbare Rollen</h4>
+        </div>
+        <div class="card-body">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Rollename</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        var j = 1;
+                        foreach (var item in ViewBag.Roles)
+                        {
+                            <tr>
+                                <th scope="row">@j</th>
+                                <td scope="row">@item.Name</td>
+                                <th scope="row"></th>
+                            </tr>
+                            j++;
+                        }
+                    }
+                    <tr>
+                        <th scope="row"></th>
+                        <td scope="row"><a href="@Url.Action("Create", "Admin")">Rolle hinzufügen</td>
+                        <td scope="row"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

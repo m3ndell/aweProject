@@ -1,10 +1,10 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Dashboard";
 }
 
 @model IEnumerable<aweProject.Models.SiteManagement>
 
-<h2 id="ressources">Welcome</h2>
+<h2 id="ressources">Wilkommen!</h2>
 <hr/>
 <form id="ConfirmationPanel">
 </form>
@@ -18,7 +18,11 @@
             @{
                 foreach (SiteManagement item in Model)
                 {
-                    <option value="@item.Id">@item.Name</option>
+                    if (item.ManagerId == ViewBag.UserId)
+                    {
+                        <option value="@item.Id">@item.Name</option>
+                    }
+
                 }
             }
 
