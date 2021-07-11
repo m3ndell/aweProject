@@ -56,3 +56,11 @@ h2 {
     margin-top: 5%;
     margin-bottom: 2%;
 }
+
+h4 {
+    color: white;
+}
+
+.card-header {
+    background-color: #11101D
+}
