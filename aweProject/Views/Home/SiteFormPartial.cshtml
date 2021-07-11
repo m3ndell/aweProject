@@ -32,7 +32,7 @@
                                             bool checkStateOrder = false;
                                             foreach (var order in orders)
                                             {
-                                                if (order.RessourceId == item.Id && order.IsClosed == false && order.IsActive == false)
+                                                if (order.RessourceId == item.Id && order.IsClosed == false && order.IsActive == false && Model.Id == order.SiteId)
                                                 {
                                                     checkStateOrder = true;
                                                     break;
@@ -121,3 +121,29 @@
         </div>
     </div>
 </div>
+
+<script>
+    function RequestRessource(Id) {
+        var SiteId = $("#SiteSelect").val();
+        $.get("@Url.Action("RequestRessource", "Home")", { RessourceId: Id, SiteId: SiteId })
+            .done(function (data) {
+                $("#SiteForm").replaceWith(data);
+            })
+            .fail(function(status) {
+                    alert("HTTP Error Code " + status.status);
+                }
+            );
+    };
+
+    function RequestRetoure(Id) {
+        var SiteId = $("#SiteSelect").val();
+        $.get("@Url.Action("RequestRetoure", "Home")", { RessourceId: Id, SiteId: SiteId })
+            .done(function (data) {
+                $("#SiteForm").replaceWith(data);
+            })
+            .fail(function(status) {
+                    alert("HTTP Error Code " + status.status);
+                }
+            );
+    };
+</script>

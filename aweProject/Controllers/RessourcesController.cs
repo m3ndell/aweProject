@@ -43,7 +43,7 @@ namespace aweProject.Controllers
             ressources.SiteId = Guid.Empty;
             ressources.OrderLog = DateTime.Now.ToString() + ", ";
             ressources.Standort = "Lager";
-            //ressources.OrderLog = "29/06/2021 19:11:53, 30/06/2021 19:11:53, 07/07/2021 19:11:53, 14/07/2021 16:52:13, 18/07/2021 14:01:33, ";
+            //ressources.OrderLog = "10/05/2021 14:11:31 ,14/05/2021 13:10:10, 29/06/2021 19:11:53, 30/06/2021 19:11:53, 07/07/2021 19:11:53";
             ressources.IsInStorage = true;
             _context.Add(ressources);
             await _context.SaveChangesAsync();
