@@ -56,7 +56,7 @@ namespace aweProject.Controllers
                 var currentUserID = currentUser.FindFirst(ClaimTypes.NameIdentifier).Value;
                 Guid IdToString = Guid.Parse(currentUserID);
                 ViewBag.UserId = IdToString;
-
+                
                 var userName = _context.Users.Find(currentUserID).Name;
                 ViewBag.UserName = userName;
 
