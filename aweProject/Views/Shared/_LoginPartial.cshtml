@@ -33,11 +33,15 @@
         <li class="profile">
             <div class="profile-details">
                 <div class="name_job">
-                    <div class="name">@UserManager.GetUserName(User)</div>
-                    <div class="job">-</div>
+                    <div class="name">
+                        <a asp-area="Identity" asp-page="/Account/Manage/Index">
+                            @UserManager.GetUserName(User)
+                        </a>
+                    </div>
+                    <div class="job">@ViewBag.UserRole</div>
                 </div>
             </div>
-            <i class="bx bx-log-out" id="log_out" type="submit"></i>
+            <button type="submit"><i class="bx bx-log-out" id="log_out"></i></button> 
         </li>
     </form>
 }

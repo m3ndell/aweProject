@@ -56,6 +56,12 @@ namespace aweProject.Controllers
                 var currentUserID = currentUser.FindFirst(ClaimTypes.NameIdentifier).Value;
                 Guid IdToString = Guid.Parse(currentUserID);
                 ViewBag.UserId = IdToString;
+
+                var users = _context.Users.Where(x => x.Id == currentUserID).SingleOrDefault();
+                var userInRole = _context.UserRoles.Where(x => x.UserId == currentUserID).Select(x => x.RoleId).ToList();
+                var Role = _context.Roles.Find(userInRole.First().ToString());
+                var RoleName = Role.Name;
+                ViewBag.UserRole = RoleName;
             }
             else
             {
