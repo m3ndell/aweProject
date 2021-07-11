@@ -77,7 +77,7 @@ namespace aweProject
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
 
-            //CreateUsersRoles(um, rm).Wait();
+            CreateUsersRoles(um, rm).Wait();
         }
         
          private async Task CreateUsersRoles(UserManager<AppUser> um, RoleManager<IdentityRole> rm)
@@ -85,8 +85,8 @@ namespace aweProject
             AppUser user = await um.FindByNameAsync("johndoe@gmail.com");
             if (user== null)
             {
-                user = new AppUser() { Email = "johndoe@gmail.com", UserName = "johndoe@gmail.com" , Name= "John Doe"};
-                await um.CreateAsync(user, "_JohnDoe123");
+                user = new AppUser() { Email = "markus.admin@wuebau.com", UserName = "markus.admin@wuebau.com", Name= "Markus Meier"};
+                await um.CreateAsync(user, "Admin132!");
 
             }
             IdentityRole role = await rm.FindByNameAsync("Administrator");

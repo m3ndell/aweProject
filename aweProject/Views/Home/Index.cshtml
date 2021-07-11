@@ -5,33 +5,39 @@
 @model IEnumerable<aweProject.Models.SiteManagement>
 
 <h2 id="ressources">Wilkommen!</h2>
-<hr/>
+<hr />
 <form id="ConfirmationPanel">
 </form>
-<div class="card border-dark">
-    <div class="card-header pl-3 pb-0 pt-2">
-        <h4>Baustelle verwalten</h4>
-    </div>
-    <div class="card-body">
-        <select id="SiteSelect" onchange="Create()" class="form-select" aria-label="Default select example">
-            <option selected>Baustelle auswählen</option>
-            @{
-                foreach (SiteManagement item in Model)
-                {
-                    if (item.ManagerId == ViewBag.UserId)
+
+@if (ViewBag.UserId != Guid.Empty)
+{
+    <div class="card border-dark">
+        <div class="card-header pl-3 pb-0 pt-2">
+            <h4>Baustelle verwalten</h4>
+        </div>
+        <div class="card-body">
+            <select id="SiteSelect" onchange="Create()" class="form-select" aria-label="Default select example">
+                <option selected>Baustelle auswählen</option>
+                @{
+                    foreach (SiteManagement item in Model)
                     {
-                        <option value="@item.Id">@item.Name</option>
+                        if (item.ManagerId == ViewBag.UserId)
+                        {
+                            <option value="@item.Id">@item.Name</option>
+                        }
+
                     }
-
                 }
-            }
 
-        </select>
+            </select>
+        </div>
     </div>
-</div>
-<form id="SiteFormPartial">
+    <form id="SiteFormPartial">
+    </form>
+}
 
-</form>
+
+
 
 <script>
     function Create() {

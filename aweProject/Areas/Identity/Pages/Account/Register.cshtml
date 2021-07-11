@@ -32,7 +32,7 @@
                 <input asp-for="Input.ConfirmPassword" class="form-control" />
                 <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
             </div>
-            <button type="submit" class="btn btn-outline-dark">Registrieren</button>
+            <button type="submit" class="btn btn-outline-dark" onclick="window.location = '@Url.Action("Action_Name", "Controller_Name")'">Registrieren</button>
         </form>
     </div>
 </div>

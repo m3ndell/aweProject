@@ -1,10 +1,11 @@
 ﻿@page
 @model AccessDeniedModel
 @{
-    ViewData["Title"] = "Access denied";
+    ViewData["Title"] = "Zugriff verweigert";
 }
 
 <header>
-    <h1 class="text-danger">@ViewData["Title"]</h1>
-    <p class="text-danger">You do not have access to this resource.</p>
+    <br />
+    <h1 class="text-danger">@ViewData["Title"]</h1><br />
+    <p class="text-danger">Du hast keinen Zugriff auf diese Seite!<br />Kontaktiere den <a href="mailto:markus.admin@wuebau.com">Systemadministrator</a> für Hilfe.</p>
 </header>
