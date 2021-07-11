@@ -36,23 +36,25 @@ namespace aweProject
             });
 
             services.AddDbContext<AppDbContext>(options =>
-                    options.UseSqlServer(
-                        Configuration.GetConnectionString("AppDbContextConnection")));
+                options.UseSqlServer(
+                    Configuration.GetConnectionString("AppDbContextConnection")));
 
             services.AddIdentity<AppUser, IdentityRole>()
                 .AddEntityFrameworkStores<AppDbContext>()
                 .AddDefaultUI()
                 .AddDefaultTokenProviders()
                 .AddRoles<IdentityRole>();
-                
+
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
-            services.AddDbContext<AppDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("AppDbContextConnection")));
+            services.AddDbContext<AppDbContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("AppDbContextConnection")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, UserManager<AppUser> um, RoleManager<IdentityRole> rm)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, UserManager<AppUser> um,
+            RoleManager<IdentityRole> rm)
         {
             if (env.IsDevelopment())
             {
@@ -79,16 +81,17 @@ namespace aweProject
 
             CreateUsersRoles(um, rm).Wait();
         }
-        
-         private async Task CreateUsersRoles(UserManager<AppUser> um, RoleManager<IdentityRole> rm)
+
+        private async Task CreateUsersRoles(UserManager<AppUser> um, RoleManager<IdentityRole> rm)
         {
             AppUser user = await um.FindByNameAsync("johndoe@gmail.com");
-            if (user== null)
+            if (user == null)
             {
-                user = new AppUser() { Email = "markus.admin@wuebau.com", UserName = "markus.admin@wuebau.com", Name= "Markus Meier"};
+                user = new AppUser()
+                    {Email = "markus.admin@wuebau.com", UserName = "markus.admin@wuebau.com", Name = "Markus Meier"};
                 await um.CreateAsync(user, "Admin132!");
-
             }
+
             IdentityRole role = await rm.FindByNameAsync("Administrator");
             if (role == null)
             {
@@ -100,10 +103,6 @@ namespace aweProject
             if (!inrole)
             {
                 await um.AddToRoleAsync(user, "Administrator");
-                if (!inrole)
-                    await um.AddToRoleAsync(user, "Administrator");
-
-                return;
             }
         }
     }

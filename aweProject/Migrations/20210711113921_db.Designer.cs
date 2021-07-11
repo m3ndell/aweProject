@@ -10,8 +10,8 @@ using aweProject.Models;
 namespace aweProject.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20210709100028_Initial")]
-    partial class Initial
+    [Migration("20210711113921_db")]
+    partial class db
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

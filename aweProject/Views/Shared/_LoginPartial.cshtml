@@ -3,21 +3,48 @@
 @inject SignInManager<AppUser> SignInManager
 @inject UserManager<AppUser> UserManager
 
+
+<!--
+
+<li class="profile">
+    <div class="profile-details">
+        <img src="profile.jpg" alt="profileImg">
+        <div class="name_job">
+            <div class="name">Prem Shahi</div>
+            <div class="job">Web designer</div>
+        </div>
+    </div>
+    <i class="bx bx-log-out" id="log_out"></i>
+</li>
+    
+-->
+
 @if (SignInManager.IsSignedIn(User))
 {
-    <form class="ml-auto" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/Index", new { area = "" })" method="post" id="logoutForm" class="navbar-right">
-        <ul class="navbar-nav ml-auto">
+    <form class="ml-auto navbar-right" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/Index", new { area = "" })" method="post" id="logoutForm">
+        <!--<ul class="navbar-nav ml-auto">
             <li class="nav-item">
                 <a class="btn btn-link navbar-btn navbar-link" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hallo @UserManager.GetUserName(User)!</a>
             </li>
             <li>
                 <button type="submit" class="btn btn-link navbar-btn navbar-link">Ausloggen</button>
             </li>
-        </ul>
+        </ul>-->
+        <li class="profile">
+            <div class="profile-details">
+                <!--<img src="profile.jpg" alt="profileImg"> TODO: Ausloggen -->
+                <div class="name_job">
+                    <div class="name">TEST TESTER</div>
+                    <div class="job">TESTER</div>
+                </div>
+            </div>
+            <i class="bx bx-log-out" id="log_out"></i>
+        </li>
     </form>
 }
 else
 {
+    <!--
     <ul class="navbar-nav ml-auto">
         <li class="nav-item">
             <a class="nav-link" asp-area="Identity" asp-page="/Account/Register">Registrieren</a>
@@ -26,4 +53,20 @@ else
             <a class="nav-link" asp-area="Identity" asp-page="/Account/Login">Einloggen</a>
         </li>
     </ul>
+    -->
+    <li>
+        <a asp-area="Identity" asp-page="/Account/Register">
+            <i class="fas fa-user-plus"></i>
+            <span class="links_name">Registrieren</span>
+        </a>
+        <span class="tooltip">Registrieren</span>
+    </li>    
+    
+    <li>
+        <a asp-area="Identity" asp-page="/Account/Login">
+            <i class="fas fa-sign-in-alt"></i>
+            <span class="links_name">Einloggen</span>
+        </a>
+        <span class="tooltip">Einloggen</span>
+    </li>
 }
