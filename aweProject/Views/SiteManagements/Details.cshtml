@@ -4,33 +4,42 @@
     ViewData["Title"] = "Details";
 }
 
-<h2>Details</h2>
 
-<div>
-    
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt>
-            Beschreibung
-        </dt>
-        <dd>
-            Beschreibung
-        </dd>
-        <dt>
-            Baustellenleiter
-        </dt>
-        <dd>
-            Baustellenleiter
-        </dd>
-    </dl>
+<div id="OrderCard">
+    <div class="card border-dark" id="SiteFormPartialCard">
+        <div class="card-header pl-3 pb-0 pt-2">
+            <h4>Details</h4>
+        </div>
+        <div class="card-body">
+            <div>
+
+                <hr />
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Name)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Name)
+                    </dd>
+                    <dt>
+                        Beschreibung
+                    </dt>
+                    <dd>
+                        Beschreibung
+                    </dd>
+                    <dt>
+                        Baustellenleiter
+                    </dt>
+                    <dd>
+                        Baustellenleiter
+                    </dd>
+                </dl>
+            </div>
+            <div>
+                <a asp-action="Edit" asp-route-id="@Model.Id">Bearbeiten</a> |
+                <a asp-action="Index">Zurück zur Liste</a>
+            </div>
+        </div>
+    </div>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Bearbeiten</a> |
-    <a asp-action="Index">Zurück zur Liste</a>
-</div>
+

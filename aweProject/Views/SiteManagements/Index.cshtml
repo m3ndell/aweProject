@@ -4,56 +4,65 @@
     ViewData["Title"] = "Baustellenverwaltung";
 }
 
-<h2>Baustellenverwaltung</h2>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                Beschreibung
-            </th>
-            <th>
-                Baustellenleiter
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Description)
-                </td>
-                <td>
-                    @{ 
-                        foreach (var user in ViewBag.UserList)
-                        {
-                            if (user.Id == item.ManagerId.ToString())
-                            {
-                                @user.Name
-                            }
-                        }
+<div id="OrderCard">
+    <div class="card border-dark" id="SiteFormPartialCard">
+        <div class="card-header pl-3 pb-0 pt-2">
+            <h4>Baustellenverwaltung</h4>
+        </div>
+        <div class="card-body">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Name)
+                        </th>
+                        <th>
+                            Beschreibung
+                        </th>
+                        <th>
+                            Baustellenleiter
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Description)
+                            </td>
+                            <td>
+                                @{
+                                    foreach (var user in ViewBag.UserList)
+                                    {
+                                        if (user.Id == item.ManagerId.ToString())
+                                        {
+                                            @user.Name
+                                        }
+                                    }
+                                }
+                            </td>
+                            <td>
+                                <a asp-action="Edit" asp-route-id="@item.Id">Bearbeiten</a> |
+                                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                                <a asp-action="Delete" asp-route-id="@item.Id">Löschen</a>
+                            </td>
+                        </tr>
                     }
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Bearbeiten</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Löschen</a>
-                </td>
-            </tr>
-        }
-        <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td><a asp-action="Create">Baustelle erstellen</a></td>
-        </tr>
-    </tbody>
-</table>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td><a asp-action="Create">Baustelle erstellen</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+

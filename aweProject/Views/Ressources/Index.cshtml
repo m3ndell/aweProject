@@ -4,47 +4,46 @@
     ViewData["Title"] = "Bestandsverwaltung";
 }
 
-<h2 id="ressources">Bestandsverwaltung</h2>
-<hr />
-
-<div class="card border-dark">
-    <div class="card-header pl-3 pb-0 pt-2">
-        <h4>Ressourcen</h4>
-    </div>
-    <div class="card-body">
-        <div class="form-row bg-dark text-white p-1">
-            <div class="col-1 pl-0">
-                Status
-            </div>
-            <div class="col-2 pl-0">
-                Name
-            </div>
-            <div class="col-1 pl-0">
-                Typ
-            </div>
-            <div class="col-2 pl-0">
-                Kaufdatum
-            </div>
-            <div class="col-2 pl-0">
-                Nächste Wartung
-            </div>
-            <div class="col-2 pl-0">
-                Standort
-            </div>
-            <div class="col-1">
-
-            </div>
+<div id="OrderCard">
+    <div class="card border-dark" id="SiteFormPartialCard">
+        <div class="card-header pl-3 pb-0 pt-2">
+            <h4>Bestandsverwaltung</h4>
         </div>
-        @foreach (var item in Model)
-        {
-            <partial name="IndexPartial" model="item" />
-        }
-        <partial name="NewPartial" />
-    </div>
-</div>
-<form id="Details_Partial">
+        <div class="card-body">
+            <div class="form-row bg-dark text-white p-1">
+                <div class="col-1 pl-0">
+                    Status
+                </div>
+                <div class="col-2 pl-0">
+                    Name
+                </div>
+                <div class="col-1 pl-0">
+                    Typ
+                </div>
+                <div class="col-2 pl-0">
+                    Kaufdatum
+                </div>
+                <div class="col-2 pl-0">
+                    Nächste Wartung
+                </div>
+                <div class="col-2 pl-0">
+                    Standort
+                </div>
+                <div class="col-1">
 
-</form>
+                </div>
+            </div>
+            @foreach (var item in Model)
+            {
+                <partial name="IndexPartial" model="item" />
+            }
+            <partial name="NewPartial" />
+        </div>
+    </div>
+    <form id="Details_Partial">
+    </form>
+</div>
+
 
 
 
