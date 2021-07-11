@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace aweProject.Controllers
 {
@@ -21,7 +22,7 @@ namespace aweProject.Controllers
             _context = context;
         }
 
-        [Authorize(Roles ="Administrator")]
+        [Microsoft.AspNetCore.Authorization.Authorize(Roles ="Administrator")]
         public async Task<IActionResult> Index()
         {
             ViewBag.Roles = await _context.Roles.ToListAsync();

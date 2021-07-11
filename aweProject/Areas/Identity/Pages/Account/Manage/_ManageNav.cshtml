@@ -1,0 +1,7 @@
+﻿@inject SignInManager<AppUser> SignInManager
+
+<ul >
+    <li class="@ManageNavPages.IndexNavClass(ViewContext)"><a asp-page="./Index">Profil</a></li>
+    <li class="@ManageNavPages.ChangePasswordNavClass(ViewContext)"><a id="change-password" asp-page="./ChangePassword">Passwort ändern</a></li>
+    <li class="@ManageNavPages.PersonalDataNavClass(ViewContext)"><a asp-page="./DeletePersonalData">Persönliche Daten verwalten</a></li>
+</ul>
