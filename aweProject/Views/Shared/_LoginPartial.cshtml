@@ -35,7 +35,7 @@
                 <div class="name_job">
                     <div class="name">
                         <a asp-area="Identity" asp-page="/Account/Manage/Index">
-                            @UserManager.GetUserName(User)   
+                            @ViewBag.UserName
                         </a>
                     </div>
                     <div class="job">@ViewBag.UserRole</div>

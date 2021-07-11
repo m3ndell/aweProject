@@ -3,43 +3,48 @@
 }
 
 @model IEnumerable<aweProject.Models.SiteManagement>
+<body class="Homepage">
 
-<h2 id="ressources">Willkommen!</h2>
-<hr />
-<form id="ConfirmationPanel">
-</form>
 
-@if (ViewBag.UserId != Guid.Empty)
-{
-    <div class="card border-dark">
-        <div class="card-header pl-3 pb-0 pt-2">
-            <h4>Baustelle verwalten</h4>
-        </div>
-        <div class="card-body">
-            <select id="SiteSelect" onchange="Create()" class="form-select" aria-label="Default select example">
-                <option selected>Baustelle auswählen</option>
-                @{
-                    foreach (SiteManagement item in Model)
-                    {
-                        if (item.ManagerId == ViewBag.UserId || ViewBag.UserRole == "Administrator")
-                        {
-                            <option value="@item.Id">@item.Name</option>
-                        }
-
-                    }
-                }
-
-            </select>
-        </div>
-    </div>
-    <form id="SiteFormPartial">
+    <form id="ConfirmationPanel">
     </form>
-}
+
+    @if (ViewBag.UserId != Guid.Empty)
+    {
+        <h2 id="welcome">Willkommen, @ViewBag.UserName!</h2>
+        <div class="card border-dark">
+            <div class="card-header pl-3 pb-0 pt-2">
+                <h4>Baustelle verwalten</h4>
+            </div>
+            <div class="card-body">
+                <select id="SiteSelect" onchange="Create()" class="form-select" aria-label="Default select example">
+                    <option selected>Baustelle auswählen</option>
+                    @{
+                        foreach (SiteManagement item in Model)
+                        {
+                            if (item.ManagerId == ViewBag.UserId || ViewBag.UserRole == "Administrator")
+                            {
+                                <option value="@item.Id">@item.Name</option>
+                            }
+
+                        }
+                    }
+
+                </select>
+            </div>
+        </div>
+        <form id="SiteFormPartial">
+        </form>
+    }
+    else
+    {
+        <h2 id="welcome">Willkommen!</h2>
+    }
 
 
 
 
-<script>
+    <script>
     function Create() {
         var value = $("#SiteSelect").val();
         $.get("@Url.Action("GetCreate", "Home")", { id: value })
@@ -75,4 +80,5 @@
                 }
             );
     };
-</script>
+    </script>
+</body>

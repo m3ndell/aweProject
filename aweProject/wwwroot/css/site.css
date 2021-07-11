@@ -64,3 +64,23 @@ h4 {
 .card-header {
     background-color: #11101D
 }
+
+footer {
+    position: fixed;
+    height: 30px;
+    bottom: 0;
+    
+    
+   
+    color: white;
+}
+
+.Homepage {
+    background-image: url('../images/background.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+#welcome {
+    color: white;
+}
