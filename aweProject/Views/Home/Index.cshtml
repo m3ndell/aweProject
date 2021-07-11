@@ -21,7 +21,7 @@
                 @{
                     foreach (SiteManagement item in Model)
                     {
-                        if (item.ManagerId == ViewBag.UserId)
+                        if (item.ManagerId == ViewBag.UserId || ViewBag.UserRole == "Administrator")
                         {
                             <option value="@item.Id">@item.Name</option>
                         }
