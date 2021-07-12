@@ -32,8 +32,8 @@ namespace aweProject.Controllers
         [Microsoft.AspNetCore.Mvc.HttpGet]
         public async Task<IActionResult> Edit(string Id)
         {
-            Console.WriteLine("Test123" + DateTime.Now.ToString());
-            Console.WriteLine(Id);
+           
+  
             UserRole userRole = new UserRole();
             var users = _context.Users.Where(x => x.Id == Id).SingleOrDefault();
             var userInRole = _context.UserRoles.Where(x => x.UserId == Id).Select(x => x.RoleId).ToList();
@@ -45,7 +45,7 @@ namespace aweProject.Controllers
                 Value = x.Id,
                 Selected = userInRole.Contains(x.Id)
             }).ToListAsync();
-            Console.WriteLine("Test1234");
+            
             return View(userRole);
         }
 

@@ -3,48 +3,52 @@
 }
 
 @model IEnumerable<aweProject.Models.SiteManagement>
+<body class="Homepage" onload="openBarOnHome()">
 
-<h2 id="ressources">Willkommen!</h2>
-<hr />
-<form id="ConfirmationPanel">
-</form>
-
-@if (ViewBag.UserId != Guid.Empty)
-{
-    <div class="card border-dark">
-        <div class="card-header pl-3 pb-0 pt-2">
-            <h4>Baustelle verwalten</h4>
-        </div>
-        <div class="card-body">
-            <select id="SiteSelect" onchange="Create()" class="form-select" aria-label="Default select example">
-                <option selected>Baustelle auswählen</option>
-                @{
-                    foreach (SiteManagement item in Model)
-                    {
-                        if (item.ManagerId == ViewBag.UserId)
-                        {
-                            <option value="@item.Id">@item.Name</option>
-                        }
-
-                    }
-                }
-
-            </select>
-        </div>
-    </div>
-    <form id="SiteFormPartial">
+    <form id="ConfirmationPanel">
     </form>
-}
 
+    @if (ViewBag.UserId != Guid.Empty)
+    {
+        <h2 id="welcome">Willkommen, @ViewBag.UserName!</h2>
+        <div class="card border-dark">
+            <div class="card-header pl-3 pb-0 pt-2">
+                <h4>Baustelle verwalten</h4>
+            </div>
+            <div class="card-body">
+                <select id="SiteSelect" onchange="Create()" class="form-select" aria-label="Default select example">
+                    <option selected>Baustelle auswählen</option>
+                    @{
+                        foreach (SiteManagement item in Model)
+                        {
+                            if (item.ManagerId == ViewBag.UserId || ViewBag.UserRole == "Administrator")
+                            {
+                                <option value="@item.Id">@item.Name</option>
+                            }
 
+                        }
+                    }
 
+                </select>
+            </div>
+        </div>
+        <form id="SiteFormPartial">
+        </form>
+    }
+    else
+    {
+        <h2 id="welcome">Willkommen!</h2>
+        <p style="color: white">Bitte loggen Sie sich ein, um Projekte bearbeiten zu können.</p>
+    }
 
-<script>
-    function Create() {
+    <script>
+        function Create() {
+            $("#SiteFormPartial").empty();
         var value = $("#SiteSelect").val();
+        console.log(value);
         $.get("@Url.Action("GetCreate", "Home")", { id: value })
             .done(function(data) {
-                $("#SiteFormPartial").replaceWith(data);
+                $("#SiteFormPartial").html(data);
             })
             .fail(function(status) {
                     alert("HTTP Error Code " + status.status);
@@ -52,27 +56,6 @@
             );
     };
 
-    function RequestRessource(Id) {
-        var SiteId = $("#SiteSelect").val();
-        $.get("@Url.Action("RequestRessource", "Home")", { RessourceId: Id, SiteId: SiteId })
-            .done(function (data) {
-                $("#SiteForm").replaceWith(data);
-            })
-            .fail(function(status) {
-                    alert("HTTP Error Code " + status.status);
-                }
-            );
-    };
-
-    function RequestRetoure(Id) {
-        var SiteId = $("#SiteSelect").val();
-        $.get("@Url.Action("RequestRetoure", "Home")", { RessourceId: Id, SiteId: SiteId })
-            .done(function (data) {
-                $("#SiteForm").replaceWith(data);
-            })
-            .fail(function(status) {
-                    alert("HTTP Error Code " + status.status);
-                }
-            );
-    };
-</script>
+    
+    </script>
+</body>

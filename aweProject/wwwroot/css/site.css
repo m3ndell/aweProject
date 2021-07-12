@@ -65,6 +65,26 @@ h4 {
     background-color: #11101D
 }
 
+footer {
+    position: fixed;
+    height: 30px;
+    bottom: 0;
+    
+    
+   
+    color: white;
+}
+
+body {
+    background-image: url('../images/background_blurred.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+#welcome {
+    color: white;
+}
+
 .login-row {
     justify-content: center;
     background-color: #11101d;

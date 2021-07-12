@@ -56,6 +56,15 @@ namespace aweProject.Controllers
                 var currentUserID = currentUser.FindFirst(ClaimTypes.NameIdentifier).Value;
                 Guid IdToString = Guid.Parse(currentUserID);
                 ViewBag.UserId = IdToString;
+                
+                var userName = _context.Users.Find(currentUserID).Name;
+                ViewBag.UserName = userName;
+
+                var users = _context.Users.Where(x => x.Id == currentUserID).SingleOrDefault();
+                var userInRole = _context.UserRoles.Where(x => x.UserId == currentUserID).Select(x => x.RoleId).ToList();
+                var Role = _context.Roles.Find(userInRole.First().ToString());
+                var RoleName = Role.Name;
+                ViewBag.UserRole = RoleName;
             }
             else
             {
@@ -66,6 +75,7 @@ namespace aweProject.Controllers
 
         public async Task<IActionResult> GetCreate(Guid id)
         {
+            Console.WriteLine(id);
             return PartialView("SiteFormPartial", new SiteRessource(id, await _context.Ressources.ToListAsync(), await _context.Order.ToListAsync(), await _context.Retouren.ToListAsync()));
         }
 

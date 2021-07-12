@@ -4,36 +4,44 @@
     ViewData["Title"] = "Baustelle löschen";
 }
 
-<h2>Löschen</h2>
+<div id="OrderCard">
+    <div class="card border-dark" id="SiteFormPartialCard">
+        <div class="card-header pl-3 pb-0 pt-2">
+            <h4>Löschen</h4>
+        </div>
+        <div class="card-body">
+            <h3>Bist du sicher, dass du diese Baustelle löschen möchtest?</h3>
+            <div>
 
-<h3>Bist du sicher, dass du diese Baustelle löschen möchtest?</h3>
-<div>
-    
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt>
-            Beschreibung
-        </dt>
-        <dd>
-            Beschreibung
-        </dd>
-        <dt>
-            Baustellenleiter
-        </dt>
-        <dd>
-            Baustellenleiter
-        </dd>
-    </dl>
-    
-    <form asp-action="Delete">
-        <input type="hidden" asp-for="Id" />
-        <input type="submit" value="Löschen" class="btn btn-default" /> |
-        <a asp-action="Index">Zurück zur Liste</a>
-    </form>
+                <hr />
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Name)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Name)
+                    </dd>
+                    <dt>
+                        Beschreibung
+                    </dt>
+                    <dd>
+                        Beschreibung
+                    </dd>
+                    <dt>
+                        Baustellenleiter
+                    </dt>
+                    <dd>
+                        Baustellenleiter
+                    </dd>
+                </dl>
+
+                <form asp-action="Delete">
+                    <input type="hidden" asp-for="Id" />
+                    <input type="submit" value="Löschen" class="btn btn-outline-dark" /> |
+                    <a asp-action="Index">Zurück zur Liste</a>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
+

@@ -33,11 +33,25 @@
         <li class="profile">
             <div class="profile-details">
                 <div class="name_job">
-                    <div class="name">@UserManager.GetUserName(User)</div>
-                    <div class="job">-</div>
+                    <div class="name">
+                        <a asp-area="Identity" asp-page="/Account/Manage/Index">
+                            @{
+                                var currentUser = await UserManager.GetUserAsync(User);
+                                var userName = currentUser.Name;
+                            }
+                            &nbsp;&nbsp;@userName&nbsp;&nbsp;
+                        </a>
+                    </div>
+                    <div class="job">
+                        @{
+                            var currentUserRole = await UserManager.GetRolesAsync(await UserManager.GetUserAsync(User));
+                            var userRole = currentUserRole.First();
+                        }
+                        &nbsp;&nbsp;&nbsp;@userRole
+                    </div>
                 </div>
             </div>
-            <i class="bx bx-log-out" id="log_out" type="submit"></i>
+            <button type="submit"><i class="bx bx-log-out" id="log_out"></i></button> 
         </li>
     </form>
 }

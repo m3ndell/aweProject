@@ -80,9 +80,9 @@
         <li>
             <a asp-controller="Ressources" asp-action="Index">
                 <i class="fas fa-tools"></i>
-                <span class="links_name">Ressourcenverwaltung</span>
+                <span class="links_name">Bestandsverwaltung</span>
             </a>
-            <span class="tooltip">Ressourcenverwaltung</span>
+            <span class="tooltip">Bestandsverwaltung</span>
         </li>
 
         <li>
@@ -107,6 +107,10 @@
 
 <div class="container body-content">
     @RenderBody()
+    <hr/>
+    <footer>
+        <p>&copy; 2021 - aweProject</p>
+    </footer>
 </div>
 
 
@@ -128,6 +132,11 @@
         } else {
             closeBtn.classList.replace("bx-menu-alt-right", "bx-menu");
         }
+    }
+
+    function openBarOnHome() {
+        sidebar.classList.toggle("open");
+        menuBtnChange();
     }
 </script>
 
