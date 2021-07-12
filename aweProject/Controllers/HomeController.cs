@@ -83,7 +83,6 @@ namespace aweProject.Controllers
 
         public async Task<IActionResult> GetCreate(Guid id)
         {
-            Console.WriteLine(id);
             return PartialView("SiteFormPartial", new SiteRessource(id, await _context.Ressources.ToListAsync(), await _context.Order.ToListAsync(), await _context.Retouren.ToListAsync()));
         }
 

@@ -28,7 +28,6 @@
 
                         }
                     }
-
                 </select>
             </div>
         </div>
@@ -43,19 +42,16 @@
 
     <script>
         function Create() {
-            $("#SiteFormPartial").empty();
-        var value = $("#SiteSelect").val();
-        console.log(value);
-        $.get("@Url.Action("GetCreate", "Home")", { id: value })
-            .done(function(data) {
-                $("#SiteFormPartial").html(data);
-            })
-            .fail(function(status) {
-                    alert("HTTP Error Code " + status.status);
-                }
-            );
-    };
-
-    
+            var value = $("#SiteSelect").val();
+        
+            $.get("@Url.Action("GetCreate", "Home")", { id: value })
+                .done(function(data) {
+                    $("#SiteFormPartial").html(data);
+                })
+                .fail(function(status) {
+                        alert("HTTP Error Code " + status.status);
+                    }
+                );
+        };
     </script>
 </body>
