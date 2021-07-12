@@ -4,11 +4,14 @@
     ViewData["Title"] = "Registrierung";
 }
 
-<h2>@ViewData["Title"]</h2>
+<style>
+body { background-image: url("/images/register.jpg"); background-size: cover; }
+</style>
 
-<div class="row">
-    <div class="col-md-4">
-        <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
+<h2 style="text-align: center">@ViewData["Title"]</h2>
+<div class="row justify-content-center">
+    <div class="login-row">
+        <form asp-route-returnUrl="@Model.ReturnUrl" method="post" class="login-form">
             <h4>Neuen Account erstellen</h4>
             <hr />
             <div asp-validation-summary="All" class="text-danger"></div>

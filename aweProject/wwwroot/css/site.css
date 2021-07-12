@@ -41,7 +41,7 @@ body {
 }
 
 .navbar-nav > .active > a {
-    text-color: #ffffff;
+    color: #ffffff;
 }
 
 #DetailsPartial {
@@ -63,4 +63,25 @@ h4 {
 
 .card-header {
     background-color: #11101D
+}
+
+.login-row {
+    justify-content: center;
+    background-color: #11101d;
+    margin-top: 5vh;
+    width: 400px;
+    padding: 20px;
+    border-radius: 10px;
+    color: white;
+    box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.3), 10px 10px 40px rgba(0, 0, 0, 0.1) inset;
+}
+
+.login-row button {
+    background-color: white;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.login-form {
+    text-align: center;
 }
