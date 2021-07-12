@@ -84,3 +84,9 @@ body {
 #welcome {
     color: white;
 }
+
+#chartContainer {
+    height: 85%;
+    width: 85%;
+    padding-left: 40px;
+}

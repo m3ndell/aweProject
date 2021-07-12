@@ -68,8 +68,43 @@
                             </tr>
                         </tbody>
                     </table>
+                    <div id="chartContainer">
+                        <canvas id="DoughnutChart"></canvas>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </form>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    var CHART = document.getElementById("DoughnutChart");
+    Chart.defaults.scale.ticks.beginAtZero = true;
+    Chart.defaults.plugins.legend.display = false;
+    var occupancy = parseFloat(@ViewBag.Occupancy);
+
+    var inStorage = 100 - occupancy;
+    var away = occupancy;
+
+    var DoughnutChart = new Chart(CHART, {
+        type: 'doughnut',
+        data: {
+            labels: ['In Umlauf', 'Verfügbar'],
+            datasets: [
+                {
+                    label: 'Occupancy',
+                    backgroundColor: ['Red', 'Green'],
+                    data: [away, inStorage],
+                    borderAlign: 'center'
+                }
+            ]
+        },
+        options: {
+            animation: {
+                animateScale: true
+            }
+        }
+    });
+
+</script>
