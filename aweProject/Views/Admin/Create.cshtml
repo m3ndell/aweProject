@@ -4,29 +4,36 @@
     ViewData["Title"] = "Rolle erstellen";
 }
 
-<h2>Rolle erstellen</h2>
 
+<div id="RetourenCard">
+    <div class="card border-dark" id="SiteFormPartialCard">
+        <div class="card-header pl-3 pb-0 pt-2">
+            <h4>Rolle erstellen</h4>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-4">
+                    <form asp-action="Create">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="form-group">
+                            <label asp-for="RoleName" class="control-label">Rollenname</label>
+                            <input asp-for="RoleName" class="form-control" />
+                            <span asp-validation-for="RoleName" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" value="Erstellen" class="btn btn-outline-dark" />
+                        </div>
+                    </form>
+                </div>
+            </div>
 
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="RoleName" class="control-label">Rollenname</label>
-                <input asp-for="RoleName" class="form-control" />
-                <span asp-validation-for="RoleName" class="text-danger"></span>
+            <div>
+                <a asp-controller="UserManagement" asp-action="Index">Zurück</a>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Erstellen" class="btn btn-outline-dark" />
-            </div>
-        </form>
+        </div>
     </div>
 </div>
 
-<div>
-    <a asp-controller="UserManagement" asp-action="Index">Zurück</a>
-</div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

@@ -105,3 +105,9 @@ body {
 .login-form {
     text-align: center;
 }
+
+#chartContainer {
+    height: 85%;
+    width: 85%;
+    padding-left: 40px;
+}

@@ -45,7 +45,11 @@
                     <div class="job">
                         @{
                             var currentUserRole = await UserManager.GetRolesAsync(await UserManager.GetUserAsync(User));
-                            var userRole = currentUserRole.First();
+                            var userRole = "Gast";
+                            if (currentUserRole.Count()!= 0)
+                            {
+                                userRole = currentUserRole.First();
+                            }
                         }
                         &nbsp;&nbsp;&nbsp;@userRole
                     </div>
