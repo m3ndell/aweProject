@@ -4,8 +4,13 @@
     ViewData["Title"] = "Zugriff verweigert";
 }
 
-<header>
-    <br />
-    <h1 class="text-danger">@ViewData["Title"]</h1><br />
-    <p class="text-danger">Du hast keinen Zugriff auf diese Seite!<br />Kontaktiere den <a href="mailto:markus.admin@wuebau.com">Systemadministrator</a> für Hilfe.</p>
-</header>
+<div id="RetourenCard">
+    <div class="card border-dark" id="SiteFormPartialCard">
+        <div class="card-header pl-3 pb-0 pt-2">
+            <h4 >@ViewData["Title"]</h4>
+        </div>
+        <div class="card-body">
+            <p class="text-danger">Du hast keinen Zugriff auf diese Seite!<br />Kontaktiere den <a href="mailto:markus.admin@wuebau.com">Systemadministrator</a> für Hilfe.</p>
+        </div>
+    </div>
+</div>
