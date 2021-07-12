@@ -88,7 +88,7 @@ namespace aweProject
             if (user == null)
             {
                 user = new AppUser()
-                    {Email = "markus.admin@wuebau.com", UserName = "markus.admin@wuebau.com", Name = "Markus Meier"};
+                    {Email = "markus.mueller@wuebau.com", UserName = "markus.mueller@wuebau.com", Name = "Markus Meier"};
                 await um.CreateAsync(user, "Admin132!");
             }
 
